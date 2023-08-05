@@ -78,8 +78,7 @@ const Login = () => {
                         <Typography style={{
                             position: "absolute",
                             left: "20px",
-                            width: "80px",
-                            color: "white"
+                            width: "80px"
                         }} variant="subtitle2">Register</Typography>
                     </Link>
 

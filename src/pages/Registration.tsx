@@ -23,7 +23,6 @@ const StyleLogin: React.CSSProperties = {
     position: "absolute",
     left: "20px",
     width: "80px",
-    color: "white"
 }
 
 export const Register = () => {

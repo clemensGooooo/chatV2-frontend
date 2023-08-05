@@ -49,7 +49,11 @@ export const ThemeProvider = (props: { children: React.ReactNode }) => {
     return (
         <ThemeContext.Provider value={{ theme: theme, setTheme }}>
             <ThemeProv theme={current_theme}>
-                <Box sx={{ width: "100vw", height: "100vh", backgroundColor: current_theme().palette.background.default }}>
+                <Box sx={{
+                    width: "100vw", height: "100vh",
+                    backgroundColor: current_theme().palette.background.default,
+                    color: current_theme().palette.text.primary
+                }}>
                     {props.children}
                 </Box>
             </ThemeProv>
