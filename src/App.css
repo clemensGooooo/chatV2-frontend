@@ -16,3 +16,10 @@
   border-radius: 20px;
   width: 300px;
 }
+
+.newsText {
+  margin: -10px 0px;
+}
+a {
+  color: rgb(0, 167, 64) !important;
+}
