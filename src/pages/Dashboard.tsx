@@ -5,9 +5,7 @@ import { Messages } from "../components/MessagesButton";
 
 
 
-///// https://mui.com/material-ui/react-menu/
-
-const Main = () => {
+const Dashboard = () => {
     const style = {
         margin: "0px 10px"
     }
@@ -43,4 +41,4 @@ const Main = () => {
     )
 }
 
-export default Main;
+export default Dashboard;
