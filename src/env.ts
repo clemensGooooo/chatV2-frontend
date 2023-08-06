@@ -1,5 +1,5 @@
 
-export const url_main = "/"
+export const url_main = "http://localhost:5000/"
 
 export const token_name = "token"
 export const token = localStorage.getItem(token_name);
