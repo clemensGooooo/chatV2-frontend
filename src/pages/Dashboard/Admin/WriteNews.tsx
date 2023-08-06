@@ -1,8 +1,11 @@
-import { Box, Button, MenuItem, Paper, Select, Snackbar, TextField, Typography } from "@mui/material"
+import {
+    Box, Button, MenuItem, Paper, Select,
+    Snackbar, TextField, Typography
+} from "@mui/material"
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { headers, urls, url_main } from "../../env";
-import { checkPrivileges } from "../../providers/useFunctions";
+import { headers, urls } from "../../../env";
+import { checkPrivileges } from "../../../providers/useFunctions";
 
 interface User {
     username: string,
@@ -61,7 +64,7 @@ export const WriteNews = () => {
     const handleSnackbarClose = () => {
         setIsSuccess(false);
     };
-    
+
     if (isAdmin)
         return (
             <Box sx={{ margin: "20px" }}>

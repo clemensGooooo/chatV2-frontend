@@ -59,11 +59,11 @@ export const Register = () => {
     const handleChangeCheckbox = () => {
         setFormData((prevFormData) => ({
             ...prevFormData,
-            ["cookies"]: true,
+            cookies: true,
         }));
         setErrors((prevErrors) => ({
             ...prevErrors,
-            ["cookies"]: false,
+            cookies: false,
         }));
     };
 
@@ -111,10 +111,10 @@ export const Register = () => {
             if (axios.isAxiosError(err)) {
                 if (err.response) {
                     const errorCode: number = err.response.status;
-                    if (errorCode == 409) {
+                    if (errorCode === 409) {
                         setErrors((prevErrors) => ({
                             ...prevErrors,
-                            ["username"]: "This username already exists!",
+                            username: "This username already exists!",
                         }));
                     } else {
                         setErr(true)

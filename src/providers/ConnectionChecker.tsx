@@ -20,7 +20,7 @@ export const ConnectionChecker = (props: { children: React.ReactNode }) => {
     const token = localStorage.getItem('token');
     useEffect(() => {
         checkConnection();
-    }, []);
+    }, [location]);
 
     const checkConnection = async () => {
         try {
