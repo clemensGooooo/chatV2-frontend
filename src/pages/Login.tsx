@@ -5,7 +5,7 @@ import {
 } from '@mui/material';
 
 import { Link } from 'react-router-dom';
-import { url_main } from '../components/env';
+import { setToken, urls, url_main } from '../env';
 
 const stylePaper: React.CSSProperties = {
     padding: "10px 20px 50px 20px",
@@ -30,13 +30,13 @@ const Login = () => {
 
     const login = async () => {
         try {
-            const response = await axios.post(url_main+'auth/login', {
+            const response = await axios.post(urls.auth_login, {
                 username: username,
                 password: password,
             });
 
             const token = response.data.token;
-            localStorage.setItem('token', token);
+            setToken(token)
             window.location.href = "/dashboard";
         } catch (err) {
             console.log('Invalid email or password.');

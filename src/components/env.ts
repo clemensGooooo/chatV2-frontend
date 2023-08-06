@@ -1,1 +1,0 @@
-export const url_main = "http://localhost:5000/"

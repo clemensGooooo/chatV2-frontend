@@ -10,7 +10,7 @@ import { ThemeSelecter } from "../components/ThemeButton";
 import { Messages } from "../components/MessagesButton";
 import { Link, Outlet } from "react-router-dom";
 import axios from "axios";
-import { url_main } from "../components/env";
+import { headers, urls } from "../env";
 import { useEffect, useState } from "react";
 import NewspaperIcon from '@mui/icons-material/Newspaper';
 import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
@@ -24,10 +24,7 @@ const Dashboard = () => {
 
     const checkPrivileges = async () => {
         try {
-            const headers = {
-                Authorization: 'Bearer ' + localStorage.getItem("token"),
-            };
-            await axios.get(url_main + 'admin', { headers });
+            await axios.get(urls.admin_checker, { headers });
             setIsAdmin(true);
         } catch (err) {
 

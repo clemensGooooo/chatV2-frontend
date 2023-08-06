@@ -1,7 +1,7 @@
 import { Box, Button, MenuItem, Paper, Select, Snackbar, TextField, Typography } from "@mui/material"
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { url_main } from "../../components/env";
+import { headers, urls, url_main } from "../../env";
 import { checkPrivileges } from "../../providers/useFunctions";
 
 interface User {
@@ -29,13 +29,11 @@ export const WriteNews = () => {
             return;
         }
         try {
-            const headers = {
-                Authorization: 'Bearer ' + localStorage.getItem("token"),
-            };
-            await axios.post(url_main + 'admin/news/new', {
+            await axios.post(urls.admin_news_write, {
                 message: message,
                 to: toUser === "all" ? undefined : toUser
             }, { headers });
+
             setIsSuccess(true);
             setMessage('');
             setToUser('all');
@@ -52,10 +50,7 @@ export const WriteNews = () => {
     }, [])
     const getUsers = async () => {
         try {
-            const headers = {
-                Authorization: 'Bearer ' + localStorage.getItem("token"),
-            };
-            const users_recived = await (await axios.get(url_main + 'admin/users', { headers })).data;
+            const users_recived = await (await axios.get(urls.admin_users, { headers })).data;
             setUsers(users_recived);
 
         } catch (err) {
@@ -66,6 +61,7 @@ export const WriteNews = () => {
     const handleSnackbarClose = () => {
         setIsSuccess(false);
     };
+    
     if (isAdmin)
         return (
             <Box sx={{ margin: "20px" }}>

@@ -1,7 +1,11 @@
-import { Box, Button, FormControl, InputLabel, MenuItem, Paper, Select, SelectChangeEvent, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from "@mui/material"
+import {
+    Box, Button, FormControl, MenuItem, Paper, Select,
+    SelectChangeEvent, Table, TableBody, TableCell,
+    TableContainer, TableHead, TableRow, Typography
+} from "@mui/material"
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { url_main } from "../../components/env";
+import { headers, urls } from "../../env";
 
 interface News {
     _id: string;
@@ -17,13 +21,10 @@ export const ShowNews = () => {
     const [pageSize, setPageSize] = useState(10);
     const [totalPages, setTotalPages] = useState(1);
 
-    const headers = {
-        Authorization: 'Bearer ' + localStorage.getItem("token"),
-    };
 
     const fetchData = () => {
         axios
-            .get(url_main + `admin/news?page=${currentPage}&pageSize=${pageSize}`, { headers })
+            .get(urls.admin_news + `?page=${currentPage}&pageSize=${pageSize}`, { headers })
             .then((response) => {
                 const { data } = response.data;
                 setData(data);
@@ -81,7 +82,7 @@ export const ShowNews = () => {
                 <br />
                 <Table>
                     <TableRow>
-                        <div style={{position: "absolute",display: 'flex', justifyContent: 'flex-start' }}>
+                        <div style={{ position: "absolute", display: 'flex', justifyContent: 'flex-start' }}>
                             <FormControl>
                                 <Select value={pageSize} onChange={handlePageSizeChange}>
                                     <MenuItem value={5}>5</MenuItem>
@@ -91,7 +92,7 @@ export const ShowNews = () => {
                             </FormControl>
                         </div>
                         <TableCell style={{ display: 'flex', justifyContent: 'flex-end' }}>
-                        <Typography variant="button" sx={{marginTop: "6px"}}>
+                            <Typography variant="button" sx={{ marginTop: "6px" }}>
                                 {`${currentPage} / ${totalPages} page`}
                             </Typography>
                             <Button variant="contained"

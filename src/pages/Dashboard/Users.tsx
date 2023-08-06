@@ -1,7 +1,10 @@
-import { Box, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from "@mui/material"
+import {
+    Box, Paper, Table, TableBody, TableCell,
+    TableContainer, TableHead, TableRow, Typography
+} from "@mui/material"
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { url_main } from "../../components/env";
+import { headers, urls } from "../../env";
 import { checkPrivileges } from "../../providers/useFunctions";
 
 interface User {
@@ -22,10 +25,7 @@ export const Users = () => {
 
     const getUsers = async () => {
         try {
-            const headers = {
-                Authorization: 'Bearer ' + localStorage.getItem("token"),
-            };
-            const users_recived = await (await axios.get(url_main + 'admin/users', { headers })).data;
+            const users_recived = await (await axios.get(urls.admin_users, { headers })).data;
             setUsers(users_recived);
 
         } catch (err) {
