@@ -1,11 +1,22 @@
-import { Box, CircularProgress, LinearProgress } from "@mui/material";
-import axios from "axios";
+import { Box, CircularProgress } from "@mui/material";
 import React, { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 import { url_main } from "../components/env";
-import Dashboard from "../pages/Dashboard";
+import axios from "axios";
 
-export const ConnectionChecker = () => {
-    const [loader, setLoader] = useState(true);
+const styleLoading: React.CSSProperties = {
+    position: 'absolute',
+    top: "50vh",
+    left: 0,
+    bottom: 0,
+    right: 0,
+    margin: 'auto'
+}
+
+export const ConnectionChecker = (props: { children: React.ReactNode }) => {
+    const location = useLocation();
+
+    const [loading, setLoading] = useState(true);
     const token = localStorage.getItem('token');
     useEffect(() => {
         checkConnection();
@@ -16,20 +27,28 @@ export const ConnectionChecker = () => {
             const headers = {
                 Authorization: 'Bearer ' + token,
             };
-            await axios.get(url_main+'check_connection', { headers });
-            setLoader(false)
+            await axios.get(url_main + 'check_connection', { headers });
+            setLoading(false)
+            
         } catch (err) {
             localStorage.removeItem('token');
-            window.location.href = "/login";
+            if (location.pathname === "/login" ||location.pathname === "/register") {
+                setLoading(false);
+            } else {
+                window.location.href = "/login";
+            }
         }
     }
     return (
         <div className="App">
-            {loader ?
+            {loading ?
                 <Box sx={{ position: "relative" }}>
-                    <CircularProgress disableShrink style={{ position: 'absolute', top: "50vh", left: 0, bottom: 0, right: 0, margin: 'auto' }} />
+                    <CircularProgress disableShrink
+                        style={styleLoading} />
                 </Box>
-                : <Dashboard />
+                : <>
+                    {props.children}
+                </>
             }
         </div >
     )

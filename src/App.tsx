@@ -1,5 +1,10 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import './App.css';
+import Dashboard from './pages/Dashboard';
+import { Account } from './pages/Dashboard/Account';
+import { ShowNews } from './pages/Dashboard/ShowNews';
+import { Users } from './pages/Dashboard/Users';
+import { WriteNews } from './pages/Dashboard/WriteNews';
 import { Error404 } from './pages/error/404';
 import Login from './pages/Login';
 import { Register } from './pages/Registration';
@@ -15,17 +20,27 @@ const App = () => {
         <Route path="/" element={<Welcome />} />
         <Route path="/dashboard" element={
           <ThemeProvider>
-            <ConnectionChecker />
+            <ConnectionChecker>
+              <Dashboard />
+            </ConnectionChecker>
           </ThemeProvider>
-        } />
+        } >
+          <Route path="account" element={<Account />} />
+          <Route path="news-article" element={<><WriteNews /><ShowNews /> </>} />
+          <Route path="users" element={<Users />} />
+        </Route>
         <Route path='/login' element={
           <ThemeProvider>
-            <Login />
+            <ConnectionChecker>
+              <Login />
+            </ConnectionChecker>
           </ThemeProvider>
         } />
         <Route path='/register' element={
           <ThemeProvider>
-            <Register />
+            <ConnectionChecker>
+              <Register />
+            </ConnectionChecker>
           </ThemeProvider>
         } />
         <Route path="*" element={<Error404 />} />
