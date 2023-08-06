@@ -7,8 +7,8 @@ import {
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import SpeakerNotesIcon from '@mui/icons-material/SpeakerNotes';
-import { compareTimestamps, timeAgo } from '../providers/useFunctions';
-import { headers, logout, urls, url_main } from '../env';
+import { compareTimestamps, timeAgo } from '../../providers/useFunctions';
+import { headers, logout, urls } from '../../env';
 import MarkdownRenderer from './MessageText';
 
 interface NewsArticle {
