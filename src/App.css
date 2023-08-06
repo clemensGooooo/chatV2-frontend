@@ -20,6 +20,13 @@
 .newsText {
   margin: -10px 0px;
 }
-a {
-  color: rgb(0, 167, 64) !important;
+
+.section1 {
+  text-align: center;
+  padding: 50px;
+}
+
+.section1 p {
+  padding: 30px;
+  font-size: x-large;
 }

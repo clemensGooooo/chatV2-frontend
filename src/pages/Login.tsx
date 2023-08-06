@@ -1,17 +1,21 @@
 import React, { useState } from 'react';
 import axios from 'axios'
-import { Button, Paper, TextField, Typography } from '@mui/material';
-import { Link } from 'react-router-dom';
+import {
+    Button, Paper, TextField, Typography
+} from '@mui/material';
 
-const paperStyle: React.CSSProperties = {
+import { Link } from 'react-router-dom';
+import { url_main } from '../components/env';
+
+const stylePaper: React.CSSProperties = {
     padding: "10px 20px 50px 20px",
     position: "relative"
 }
 
-const textFieldsStyle: React.CSSProperties = {
+const styleTextfields: React.CSSProperties = {
     margin: "10px 0px"
 }
-const loginButtonStyle: React.CSSProperties = {
+const styleLoadingButton: React.CSSProperties = {
     position: "absolute",
     right: "20px",
     width: "80px"
@@ -19,14 +23,14 @@ const loginButtonStyle: React.CSSProperties = {
 
 const Login = () => {
 
-
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
+
     const [err, setErr] = useState(false);
 
     const login = async () => {
         try {
-            const response = await axios.post('http://localhost:5000/auth/login', {
+            const response = await axios.post(url_main+'auth/login', {
                 username: username,
                 password: password,
             });
@@ -51,16 +55,16 @@ const Login = () => {
     return (
         <div className='container'>
             <div className='login'>
-                <Paper style={paperStyle} variant="outlined">
+                <Paper style={stylePaper} variant="outlined">
                     <Typography variant='h5'>Login</Typography>
 
                     <TextField label="Username"
-                        style={textFieldsStyle} fullWidth
+                        style={styleTextfields} fullWidth
                         onChange={(e) => setUsername(e.target.value)}
                     />
                     <br />
                     <TextField label="Password"
-                        style={textFieldsStyle}
+                        style={styleTextfields}
                         variant="outlined"
                         fullWidth
                         type={"password"}
@@ -74,7 +78,7 @@ const Login = () => {
                         :
                         <></>
                     }
-                    <Link to="/register">
+                    <Link to="/register" style={{ color: "green" }}>
                         <Typography style={{
                             position: "absolute",
                             left: "20px",
@@ -83,7 +87,7 @@ const Login = () => {
                     </Link>
 
                     <Button
-                        style={loginButtonStyle}
+                        style={styleLoadingButton}
                         variant="contained"
                         onClick={login}
                     >

@@ -1,7 +1,9 @@
 import {
-    Button, Checkbox, FormControl,
+    Button, Checkbox,
+    FormControl,
     FormControlLabel,
-    FormGroup, FormHelperText,
+    FormGroup,
+    FormHelperText,
     Paper, TextField,
     Typography
 } from "@mui/material"
@@ -10,34 +12,36 @@ import axios from "axios";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
-const paperStyle: React.CSSProperties = {
+const stylePaper: React.CSSProperties = {
     padding: "10px 20px 50px 20px",
     position: "relative"
 }
-const StyleCheckBox: React.CSSProperties = {
+const styleCheckbox: React.CSSProperties = {
     margin: "6px -10px"
 }
 
-const StyleLogin: React.CSSProperties = {
+const styleLogin: React.CSSProperties = {
     margin: "5px 0px",
     position: "absolute",
     left: "20px",
     width: "80px",
 }
 
+const styleLink: React.CSSProperties = {
+    color: "green"
+}
+
+const defaultValues = {
+    username: '',
+    password: '',
+    cookies: false
+}
+
 export const Register = () => {
     const [err, setErr] = useState(false);
-    const [formData, setFormData] = useState({
-        username: '',
-        password: '',
-        cookies: false
-    });
+    const [formData, setFormData] = useState(defaultValues);
+    const [errors, setErrors] = useState(defaultValues);
 
-    const [errors, setErrors] = useState({
-        username: '',
-        password: '',
-        cookies: false
-    });
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const { name, value } = e.target;
@@ -65,7 +69,6 @@ export const Register = () => {
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-        // Form validation
         const newErrors = {
             username: "",
             password: "",
@@ -124,7 +127,7 @@ export const Register = () => {
     return (
         <div className='container'>
             <div className='login'>
-                <Paper style={paperStyle} variant="outlined">
+                <Paper style={stylePaper} variant="outlined">
 
                     <Typography variant="h4" align="left" gutterBottom>
                         Register
@@ -156,7 +159,7 @@ export const Register = () => {
 
                         <FormGroup>
                             <FormControlLabel
-                                style={StyleCheckBox}
+                                style={styleCheckbox}
                                 checked={formData.cookies}
                                 onChange={handleChangeCheckbox}
                                 control={<Checkbox color="warning" name="cookies" />}
@@ -174,8 +177,13 @@ export const Register = () => {
                         <Button type="submit" variant="contained" color="primary" fullWidth>
                             Register
                         </Button>
-                        <Link to="/login">
-                            <Typography style={StyleLogin} variant="subtitle2">Login</Typography>
+                        <Link to="/login" style={styleLink}>
+                            <Typography
+                                style={styleLogin}
+                                variant="subtitle2"
+                            >
+                                Login
+                            </Typography>
                         </Link>
                     </form>
                 </Paper>

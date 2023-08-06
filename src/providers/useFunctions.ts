@@ -1,3 +1,5 @@
+import axios from "axios";
+import { url_main } from "../components/env";
 
 export const timeAgo = (timestamp: string) => {
     const currentDate = new Date();
@@ -39,3 +41,15 @@ export const compareTimestamps = (a: TimestampObj, b: TimestampObj) => {
     const timestampB = new Date(b.createdAt);
     return timestampB.getTime() - timestampA.getTime();
 };
+
+export const checkPrivileges = async () => {
+    try {
+        const headers = {
+            Authorization: 'Bearer ' + localStorage.getItem("token"),
+        };
+        await axios.get(url_main + 'admin', { headers });
+        return true;
+    } catch (err) {
+        return false;
+    }
+}
