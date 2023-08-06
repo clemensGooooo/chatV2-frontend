@@ -6,9 +6,9 @@ import { ShowNews } from './pages/Dashboard/User/ShowNews';
 import { Users } from './pages/Dashboard/Admin/Users';
 import { WriteNews } from './pages/Dashboard/Admin/WriteNews';
 import { Error404 } from './pages/Error-Pages/404';
-import Login from './pages/Login';
-import { Register } from './pages/Registration';
-import { Welcome } from './pages/Welcome';
+import Login from './pages/Authentification/Login';
+import { Register } from './pages/Authentification/Registration';
+import { Welcome } from './pages/Website/Welcome';
 import { ConnectionChecker } from './providers/ConnectionChecker';
 import { ThemeProvider } from './providers/ThemeProvider';
 

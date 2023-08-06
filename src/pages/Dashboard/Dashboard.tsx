@@ -6,8 +6,8 @@ import {
     Theme
 } from "@mui/material";
 
-import { ThemeSelecter } from "../../components/ThemeButton";
-import { Messages } from "../../components/MessagesButton";
+import { ThemeSelecter } from "../../components/Dashboard/ThemeButton";
+import { Messages } from "../../components/Dashboard/MessagesButton";
 import { Link, Outlet } from "react-router-dom";
 import axios from "axios";
 import { headers, urls } from "../../env";

@@ -11,7 +11,7 @@ import {
 import axios from "axios";
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { urls } from "../env";
+import { urls } from "../../env";
 
 const stylePaper: React.CSSProperties = {
     padding: "10px 20px 50px 20px",

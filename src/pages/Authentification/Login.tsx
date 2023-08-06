@@ -5,7 +5,7 @@ import {
 } from '@mui/material';
 
 import { Link } from 'react-router-dom';
-import { setToken, urls } from '../env';
+import { setToken, urls } from '../../env';
 
 const stylePaper: React.CSSProperties = {
     padding: "10px 20px 50px 20px",

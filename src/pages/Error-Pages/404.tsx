@@ -1,5 +1,5 @@
 import { Box, Typography } from "@mui/material"
-import { AppBarWebsite } from "../AppBarWebsite"
+import { AppBarWebsite } from "../../components/Website/AppBarWebsite"
 
 export const Error404 = () => {
     return (

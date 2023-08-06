@@ -1,4 +1,4 @@
-import { AppBarWebsite } from "./AppBarWebsite"
+import { AppBarWebsite } from "../../components/Website/AppBarWebsite"
 
 export const Welcome = () => {
     return (
