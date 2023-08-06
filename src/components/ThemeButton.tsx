@@ -5,6 +5,7 @@ import { useTheme } from '../providers/ThemeProvider';
 
 export const ThemeSelecter = () => {
     const themeProvider = useTheme();
+    
     return (<>
         {themeProvider.theme == "light" ?
             <IconButton onClick={() => themeProvider.setTheme("dark")} >

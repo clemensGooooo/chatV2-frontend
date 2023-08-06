@@ -1,18 +1,24 @@
 import {
     Avatar,
-    Backdrop, Box, Button, CircularProgress,
+    Backdrop,
+    Box,
+    Button,
+    CircularProgress,
     Dialog,
     DialogActions,
     DialogContent,
     DialogContentText,
     DialogTitle,
     Grid,
-    Paper, Snackbar, TextField, Typography
+    Paper,
+    Snackbar,
+    TextField,
+    Typography
 } from "@mui/material"
 import axios, { AxiosResponse } from "axios";
 import React, { useRef } from "react";
 import { useEffect, useState } from "react";
-import { url_main } from "../../components/env";
+import { headers, logout, urls, url_main } from "../../env";
 
 let image_url = url_main + "user/profile/image";
 
@@ -69,18 +75,13 @@ export const Account = () => {
         }
     };
 
-
     useEffect(() => {
         getProfile();
     }, [success])
 
-    const headers = {
-        Authorization: 'Bearer ' + localStorage.getItem("token")
-    };
-
     const getProfile = async () => {
         try {
-            const response = await axios.get(url_main + "user/profile", { headers });
+            const response = await axios.get(urls.user_profile, { headers });
             setProfile(response.data);
         } catch (err) {
             console.log(err);
@@ -88,31 +89,26 @@ export const Account = () => {
     }
 
     useEffect(() => {
-        const fetchImage = async () => {
-            try {
-                const response: AxiosResponse<ArrayBuffer> = await axios.get(image_url, {
-                    headers: {
-                        'Authorization': 'Bearer ' + localStorage.getItem("token"),
-                    },
-                    responseType: 'arraybuffer',
-                });
-
-                const blob = new Blob([response.data], { type: response.headers['content-type'] });
-                setImageData(URL.createObjectURL(blob));
-            } catch (error) {
-                console.error('Error fetching image:', error);
-            }
-        };
-
         fetchImage();
     }, [image_url]);
 
+    const fetchImage = async () => {
+        try {
+            const response: AxiosResponse<ArrayBuffer> = await axios.get(image_url, {
+                headers,
+                responseType: 'arraybuffer',
+            });
+
+            const blob = new Blob([response.data], { type: response.headers['content-type'] });
+            setImageData(URL.createObjectURL(blob));
+        } catch (error) {
+            console.error('Error fetching image:', error);
+        }
+    };
+
     const changePassword = async () => {
         try {
-            const headers = {
-                Authorization: 'Bearer ' + localStorage.getItem("token"),
-            };
-            await axios.post(url_main + 'user/password', {
+            await axios.post(urls.user_password_change, {
                 newPassword: newPassword,
                 password: password
             }, { headers });
@@ -127,10 +123,6 @@ export const Account = () => {
         setOpenPasswdChange(false);
     };
 
-    const logout = () => {
-        localStorage.removeItem("token");
-        window.location.reload();
-    }
     return (
         <Box sx={{
             display: 'flex',

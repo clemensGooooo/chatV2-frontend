@@ -1,7 +1,7 @@
 import { Box, CircularProgress } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
-import { url_main } from "../components/env";
+import { url_main } from "../env";
 import axios from "axios";
 
 const styleLoading: React.CSSProperties = {

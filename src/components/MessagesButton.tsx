@@ -8,7 +8,7 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import SpeakerNotesIcon from '@mui/icons-material/SpeakerNotes';
 import { compareTimestamps, timeAgo } from '../providers/useFunctions';
-import { url_main } from './env';
+import { headers, logout, urls, url_main } from '../env';
 import MarkdownRenderer from './MessageText';
 
 interface NewsArticle {
@@ -32,10 +32,6 @@ export const Messages = () => {
     const [menu, setMenu] = useState<null | HTMLElement>(null);
     const [news, setNews] = useState({ data: [], all: false } as NewsArticlesObj)
 
-    const headers = {
-        Authorization: 'Bearer ' + localStorage.getItem("token"),
-    };
-
     useEffect(() => {
         loadMessages();
     }, [])
@@ -53,8 +49,7 @@ export const Messages = () => {
 
     const loadMessages = async (allNews = false) => {
         try {
-            let url = url_main + 'user/news';
-            if (allNews) url += "/all"
+            let url = allNews ? urls.user_all_news : urls.user_new_news;
 
             const data: NewsArticle[] = await (await axios.get(url, { headers })).data;
 
@@ -67,8 +62,7 @@ export const Messages = () => {
             setNews({ data: dataSorted, all: allNews })
 
         } catch (err) {
-            localStorage.removeItem('token');
-            window.location.href = "/login";
+            logout();
         }
     }
     const showAllNews = async (how: boolean) => {
@@ -76,7 +70,7 @@ export const Messages = () => {
     }
 
     const setReaded = async () => {
-        await axios.get(url_main + "user/news/readed", { headers })
+        await axios.get(urls.user_news_readed, { headers })
     }
     return (
         <>

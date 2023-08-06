@@ -11,6 +11,7 @@ import {
 import axios from "axios";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { urls } from "../env";
 
 const stylePaper: React.CSSProperties = {
     padding: "10px 20px 50px 20px",
@@ -98,7 +99,7 @@ export const Register = () => {
 
     const register = async () => {
         try {
-            const response = await axios.post('http://localhost:5000/auth/register', {
+            const response = await axios.post(urls.auth_register, {
                 username: formData.username,
                 password: formData.password
             });
