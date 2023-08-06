@@ -4,8 +4,8 @@ import {
 } from "@mui/material"
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { headers, urls } from "../../env";
-import { checkPrivileges } from "../../providers/useFunctions";
+import { headers, urls } from "../../../env";
+import { checkPrivileges } from "../../../providers/useFunctions";
 
 interface User {
     username: string,

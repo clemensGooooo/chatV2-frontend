@@ -6,11 +6,11 @@ import {
     Theme
 } from "@mui/material";
 
-import { ThemeSelecter } from "../components/ThemeButton";
-import { Messages } from "../components/MessagesButton";
+import { ThemeSelecter } from "../../components/ThemeButton";
+import { Messages } from "../../components/MessagesButton";
 import { Link, Outlet } from "react-router-dom";
 import axios from "axios";
-import { headers, urls } from "../env";
+import { headers, urls } from "../../env";
 import { useEffect, useState } from "react";
 import NewspaperIcon from '@mui/icons-material/Newspaper';
 import PeopleAltIcon from '@mui/icons-material/PeopleAlt';

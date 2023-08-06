@@ -18,9 +18,7 @@ import {
 import axios, { AxiosResponse } from "axios";
 import React, { useRef } from "react";
 import { useEffect, useState } from "react";
-import { headers, logout, urls, url_main } from "../../env";
-
-let image_url = url_main + "user/profile/image";
+import { headers, logout, urls, url_main } from "../../../env";
 
 const gridStyle = {
     justifyContent: "center",
@@ -90,11 +88,11 @@ export const Account = () => {
 
     useEffect(() => {
         fetchImage();
-    }, [image_url]);
+    }, [success]);
 
     const fetchImage = async () => {
         try {
-            const response: AxiosResponse<ArrayBuffer> = await axios.get(image_url, {
+            const response: AxiosResponse<ArrayBuffer> = await axios.get(urls.user_profile_image, {
                 headers,
                 responseType: 'arraybuffer',
             });
@@ -162,7 +160,7 @@ export const Account = () => {
                                 onChange={(e) => setNewPassword(e.target.value)}
                             />
                         </Box>
-                        {newPassword != "" ?
+                        {newPassword !== "" ?
                             <Button sx={{
                                 margin: "10px"
                             }} onClick={() => setOpenPasswdChange(true)}>
