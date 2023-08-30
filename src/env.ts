@@ -18,12 +18,13 @@ export const headers = {
 };
 
 export const urls = {
+    chatImages: url_main + "chat/getImage",
     user_new_news: url_main + "user/news",
     user_all_news: url_main + "user/news/all",
     user_news_readed: url_main + "user/news/readed",
     user_profile: url_main + "user/profile",
     user_password_change: url_main + "user/password",
-    user_profile_image: "user/profile/image",
+    user_profile_image: url_main+"user/profile/image",
     admin_checker: url_main + "admin",
     admin_users: url_main + "admin/users",
     admin_news: url_main + "admin/news",
@@ -31,4 +32,7 @@ export const urls = {
     auth_register: url_main + "auth/register",
     auth_login: url_main + "auth/login",
     connection_check: url_main+"check_connection",
+    getChats: url_main+"chat/getChats",
+    getMessages: url_main+"chat/getChatMessages",
+    getChatInfo: url_main+"chat/getChatInfo",
 }
