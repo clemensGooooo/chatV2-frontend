@@ -1,5 +1,5 @@
 import { Paper, Typography } from "@mui/material";
-import { timeAgo } from "../../providers/useFunctions";
+import { timeAgo } from "../../../providers/useFunctions";
 import { Message } from "./ChatContent";
 import Image from "./Image";
 
@@ -27,7 +27,9 @@ const ChatBox = (props: { message: Message,user: string }) => {
         padding: "10px",
         margin: "10px",
         maxWidth: message.type == "image" ? "40%" : "60%",
+        minWidth: "10%",
         lineBreak: "anywhere",
+        textAlign: props.user == message.user ? "right" : "left",
         alignSelf: props.user == message.user ? "flex-end" : "flex-start",
       }}
     >

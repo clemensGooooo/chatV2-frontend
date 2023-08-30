@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { headers, urls } from "../../env";
+import { headers, urls } from "../../../env";
 
 const Image = (props: { id: string }) => {
   const [imageSrc, setImageSrc] = useState("");
