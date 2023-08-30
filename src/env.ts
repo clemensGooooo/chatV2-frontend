@@ -30,4 +30,5 @@ export const urls = {
     admin_news_write: url_main + "admin/news/new",
     auth_register: url_main + "auth/register",
     auth_login: url_main + "auth/login",
+    connection_check: url_main+"check_connection",
 }
