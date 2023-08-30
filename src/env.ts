@@ -5,7 +5,7 @@ export const token_name = "token"
 export const token = localStorage.getItem(token_name);
 
 export const setToken = (token: string) => {
-    localStorage.setItem(token_name,token);
+    localStorage.setItem(token_name, token);
 }
 
 export const logout = () => {
@@ -24,15 +24,25 @@ export const urls = {
     user_news_readed: url_main + "user/news/readed",
     user_profile: url_main + "user/profile",
     user_password_change: url_main + "user/password",
-    user_profile_image: url_main+"user/profile/image",
+    user_profile_image: url_main + "user/profile/image",
     admin_checker: url_main + "admin",
     admin_users: url_main + "admin/users",
     admin_news: url_main + "admin/news",
     admin_news_write: url_main + "admin/news/new",
     auth_register: url_main + "auth/register",
     auth_login: url_main + "auth/login",
-    connection_check: url_main+"check_connection",
-    getChats: url_main+"chat/getChats",
-    getMessages: url_main+"chat/getChatMessages",
-    getChatInfo: url_main+"chat/getChatInfo",
+    connection_check: url_main + "check_connection",
+    getChats: url_main + "chat/getChats",
+    getMessages: url_main + "chat/getChatMessages",
+    getChatInfo: url_main + "chat/getChatInfo",
+    sendMessage: url_main + "chat/send",
+    getUsers: url_main + "chat/getUsernames",
+    createChat: url_main + "chat/createChat",
+}
+
+export interface Chat {
+    name: string;
+    chatID: number;
+    chatText: string;
+    lastInteraction: string;
 }

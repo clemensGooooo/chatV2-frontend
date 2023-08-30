@@ -2,19 +2,13 @@ import {
   Box,
   AppBar,
   Toolbar,
-  IconButton,
   Typography,
-  Button,
-  Paper,
-  TextField,
 } from "@mui/material";
 import axios from "axios";
-import { useEffect, useRef, useState } from "react";
-import { headers, urls } from "../../env";
-import { timeAgo } from "../../providers/useFunctions";
+import { useEffect, useState } from "react";
+import { headers, urls } from "../../../env";
 import ChatMessages from "./ChatMessages";
 import ChatSend from "./ChatSend";
-import ChatBox from "./Message";
 
 interface ChatContentProps {
   chatID: number;
@@ -103,7 +97,7 @@ const ChatContent = (props: ChatContentProps) => {
         </Toolbar>
       </AppBar>
       <ChatMessages messages={messages} user={user} />
-      <ChatSend />
+      <ChatSend chatID={chatInfo.chatID} />
     </Box>
   );
 };

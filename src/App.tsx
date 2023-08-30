@@ -11,7 +11,7 @@ import { Register } from "./pages/Authentification/Registration";
 import { Welcome } from "./pages/Website/Welcome";
 import { ConnectionChecker } from "./providers/ConnectionChecker";
 import { ThemeProvider } from "./providers/ThemeProvider";
-import Main from "./pages/Chat/Main";
+import Main from "./pages/Chat/Index";
 
 const App = () => {
   return (
