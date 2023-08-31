@@ -38,11 +38,15 @@ export const urls = {
     sendMessage: url_main + "chat/send",
     getUsers: url_main + "chat/getUsernames",
     createChat: url_main + "chat/createChat",
+    uploadGroupImage: url_main + "chat/uploadGroupImage",
+    getProfile: url_main + "chat/getProfile",
+    editDescription: url_main + "chat/editChatText",
+    editName: url_main + "chat/editChatName",
 }
 
 export interface Chat {
     name: string;
     chatID: number;
-    chatText: string;
     lastInteraction: string;
+    image: boolean
 }

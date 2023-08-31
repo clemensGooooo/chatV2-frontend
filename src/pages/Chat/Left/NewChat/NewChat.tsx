@@ -9,7 +9,7 @@ import {
 import { Box } from "@mui/system";
 import axios from "axios";
 import { ChangeEvent, useEffect, useState } from "react";
-import { headers, urls } from "../../../env";
+import { headers, urls } from "../../../../env";
 import NewChatImage from "./NewChatImage";
 import NewChatMembers, { User } from "./NewChatMembers";
 
@@ -111,6 +111,19 @@ const NewChat = (props: NewChatProps) => {
     try {
       let response = await axios.post(urls.createChat, body, { headers });
       const chatID = response.data.id;
+      if (selectedImage) {
+        const formData = new FormData();
+        formData.append("image", selectedImage);
+
+        formData.append("chatID", chatID);
+        try {
+          const response = await axios.post(urls.uploadGroupImage, formData, {
+            headers: { ...headers, "Content-Type": "multipart/form-data" },
+          });
+        } catch (error) {
+          console.error("Upload error", error);
+        }
+      }
       props.newChat(chatID);
     } catch (error) {
       setError(true);
@@ -122,6 +135,7 @@ const NewChat = (props: NewChatProps) => {
       style={{
         height: "100%",
         overflowY: "scroll",
+        opacity: 1,
       }}
     >
       <Typography
@@ -244,7 +258,7 @@ const NewChat = (props: NewChatProps) => {
         }}
         onClick={create}
       >
-        Create Chat!
+        Create
       </Button>
     </div>
   );

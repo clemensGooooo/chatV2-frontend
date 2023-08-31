@@ -2,8 +2,8 @@ import { Paper, Typography } from "@mui/material";
 import { useState } from "react";
 import { Chat } from "../../../env";
 import Chats from "./Chats";
-import NewChat from "./NewChat";
-import NewChatButton from "./NewChatButton";
+import NewChat from "./NewChat/NewChat";
+import NewChatButton from "./NewChat/NewChatButton";
 
 const Left = (props: {
   chats: Chat[];
@@ -21,6 +21,7 @@ const Left = (props: {
         flexDirection: "column",
         height: "100%",
         margin: "0",
+
       }}
       elevation={4}
     >
