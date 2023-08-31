@@ -3,7 +3,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { headers, urls } from "../../../env";
 import ChatHeader from "./ChatHeader";
-import ChatInfo from "./ChatInfo";
+import ChatInfo from "./ChatInfo/Index";
 import ChatMessages from "./ChatMessages";
 import ChatSend from "./ChatSend";
 

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { AppBar, Box, IconButton, Paper, Toolbar, Typography } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import EditProfileImage from "./EditProfileImage";
-import { ChatLarge } from "./ChatContent";
+import { ChatLarge } from "../ChatContent";
 import { Name, Description } from "./EditableField";
 
 interface ChatInfoProps {
