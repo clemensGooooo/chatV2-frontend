@@ -8,7 +8,7 @@ import {
 } from "@mui/material";
 import { AddCircleOutline, RemoveCircleOutline } from "@mui/icons-material";
 import axios from "axios";
-import { headers, urls } from "../../../env";
+import { headers, urls } from "../../../../env";
 
 export interface User {
   id: number;

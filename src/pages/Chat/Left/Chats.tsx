@@ -10,8 +10,10 @@ import {
 import React from "react";
 import { Chat } from "../../../env";
 import { timeAgo } from "../../../providers/useFunctions";
+import ChatIcon from "./ChatIcon";
 
 const Chats = (props: { clickChat: (id: number) => void; chats: Chat[] }) => {
+  
   return (
     <List
       style={{
@@ -25,7 +27,7 @@ const Chats = (props: { clickChat: (id: number) => void; chats: Chat[] }) => {
         <ListItem key={chat.chatID} disablePadding>
           <ListItemButton onClick={() => props.clickChat(chat.chatID)}>
             <ListItemAvatar>
-              <Avatar alt="Chat" />
+              <ChatIcon id={chat.chatID} image={chat.image} />
             </ListItemAvatar>
             <ListItemText
               primary={chat.name}
@@ -37,9 +39,8 @@ const Chats = (props: { clickChat: (id: number) => void; chats: Chat[] }) => {
                     variant="body2"
                     color="text.primary"
                   >
-                    {chat.chatText}
                   </Typography>
-                  {" - " + timeAgo(chat.lastInteraction)}
+                  {timeAgo(chat.lastInteraction)}
                 </React.Fragment>
               }
             />

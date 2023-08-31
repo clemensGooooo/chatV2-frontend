@@ -7,9 +7,10 @@ const NewChatImage = (props: {url: string}) => {
         alignSelf: "center",
         height: "100%",
       }}
-    >
+      >
       <div
         style={{
+          borderRadius: "20px",
           textAlign: "center",
           display: "block",
           height: "100%",
@@ -18,7 +19,6 @@ const NewChatImage = (props: {url: string}) => {
           backgroundSize: "cover",
           backgroundPosition: "center",
           position: "relative",
-          borderRadius: "20px",
         }}
       >
         <div

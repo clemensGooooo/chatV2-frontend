@@ -1,12 +1,9 @@
-import {
-  Box,
-  AppBar,
-  Toolbar,
-  Typography,
-} from "@mui/material";
+import { Box, AppBar, Toolbar, Typography } from "@mui/material";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { headers, urls } from "../../../env";
+import ChatHeader from "./ChatHeader";
+import ChatInfo from "./ChatInfo";
 import ChatMessages from "./ChatMessages";
 import ChatSend from "./ChatSend";
 
@@ -25,17 +22,19 @@ export interface Message {
   __v: number;
 }
 
-interface Chat {
+export interface ChatLarge {
   chatID: number;
   name: string;
   members: string[];
   lastInteraction: string;
   chatText: string;
+  image: boolean;
 }
 
 const ChatContent = (props: ChatContentProps) => {
   const [messages, setMessages] = useState([] as Message[]);
-  const [chatInfo, setChatInfo] = useState({} as Chat);
+  const [chatInfo, setChatInfo] = useState({} as ChatLarge);
+  const [mode, setMode] = useState(0); // 0 main chat - 1 chat info
   const [user, setUser] = useState("" as string);
 
   useEffect(() => {
@@ -74,30 +73,19 @@ const ChatContent = (props: ChatContentProps) => {
     fetchUsername();
     fetchInfo();
     fetchChats();
-  }, []);
+  }, [props.chatID]);
 
   return (
     <Box sx={{ display: "flex", flexDirection: "column", height: "100%" }}>
-      <AppBar position="static">
-        <Toolbar>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            {chatInfo.name}
-            <Typography
-              variant="subtitle2"
-              sx={{
-                position: "absolute",
-                margin: "-4px",
-                padding: "0px 5px",
-                color: "#cccccc",
-              }}
-            >
-              {chatInfo.chatText}
-            </Typography>
-          </Typography>
-        </Toolbar>
-      </AppBar>
-      <ChatMessages messages={messages} user={user} />
-      <ChatSend chatID={chatInfo.chatID} />
+      {mode == 0 ? (
+        <>
+          <ChatHeader chatInfo={chatInfo} clickInfo={() => setMode(1)} />
+          <ChatMessages messages={messages} user={user} />
+          <ChatSend chatID={chatInfo.chatID} />
+        </>
+      ) : (
+        <ChatInfo chat={chatInfo} back={() => setMode(0)} />
+      )}
     </Box>
   );
 };
