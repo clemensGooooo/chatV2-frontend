@@ -13,7 +13,7 @@ const Left = (props: {
 }) => {
   const [mode, setMode] = useState(0); // 0 -> displays all, 1 -> new Chat
   return (
-    <Paper
+    <div
       style={{
         width: props.width,
         position: "relative",
@@ -21,9 +21,9 @@ const Left = (props: {
         flexDirection: "column",
         height: "100%",
         margin: "0",
+        borderRight: "1px solid #cccccc"
 
       }}
-      elevation={4}
     >
       {mode == 0 ? (
         <>
@@ -45,7 +45,7 @@ const Left = (props: {
           }}
         />
       )}
-    </Paper>
+    </div>
   );
 };
 

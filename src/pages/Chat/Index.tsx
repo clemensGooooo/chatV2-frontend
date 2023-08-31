@@ -5,6 +5,7 @@ import axios from "axios";
 import { urls, headers, Chat } from "../../env";
 import ChatContent from "./Right/ChatContent";
 import Left from "./Left/Index";
+import Welcome from "./Welcome";
 
 const Main = () => {
   const [chats, setChats] = useState([] as Chat[]);
@@ -37,7 +38,8 @@ const Main = () => {
           })
           .sort(
             (a: Chat, b: Chat) =>
-              new Date(b.lastInteraction).getTime() - new Date(a.lastInteraction).getTime()
+              new Date(b.lastInteraction).getTime() -
+              new Date(a.lastInteraction).getTime()
           );
         console.log(updatedChats);
 
@@ -51,18 +53,18 @@ const Main = () => {
   }, [changed]);
 
   return (
-    <div
+    <Paper
       style={{
         maxWidth: 1400,
         display: "flex",
         flex: 1,
         height: "85vh",
-        padding: "20px",
         margin: "auto",
         paddingBottom: "0px",
-        marginTop: "10px",
+        marginTop: "30px",
         marginBottom: "-15px",
       }}
+      elevation={4}
     >
       <Left
         width="30%"
@@ -73,16 +75,15 @@ const Main = () => {
           setChange(changed + 1);
         }}
       />
-      <Paper style={{ flex: 1 }} elevation={3}>
+      <div
+        style={{
+          flex: 1,
+          borderTopRightRadius: "20px",
+          borderBottomRightRadius: "20px",
+        }}
+      >
         {chatSelected == undefined ? (
-          <Typography
-            variant="h2"
-            style={{
-              textAlign: "center",
-            }}
-          >
-            Welcome !
-          </Typography>
+          <Welcome />
         ) : (
           <ChatContent
             chatID={chatSelected}
@@ -92,8 +93,8 @@ const Main = () => {
             }}
           />
         )}
-      </Paper>
-    </div>
+      </div>
+    </Paper>
   );
 };
 
