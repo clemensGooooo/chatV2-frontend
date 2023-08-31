@@ -11,13 +11,37 @@ const Main = () => {
   const [chatSelected, setChatSelected] = useState(
     undefined as undefined | number
   );
+  const [chatChange, setChatChange] = useState(null as null | number);
   const [changed, setChange] = useState(0);
 
   useEffect(() => {
     const fetchChats = async () => {
       try {
         const response = await axios.get(urls.getChats, { headers });
-        setChats(response.data);
+
+        const updatedChats = response.data
+          .map((chat: Chat) => {
+            const oldChat = chats.find((c) => c.chatID === chat.chatID);
+
+            if (oldChat) {
+              return {
+                ...chat,
+                changed:
+                  chatChange == chat.chatID
+                    ? oldChat.changed + 1
+                    : oldChat.changed,
+              };
+            } else {
+              return { ...chat, changed: 0 };
+            }
+          })
+          .sort(
+            (a: Chat, b: Chat) =>
+              new Date(b.lastInteraction).getTime() - new Date(a.lastInteraction).getTime()
+          );
+        console.log(updatedChats);
+
+        setChats(updatedChats);
       } catch (error) {
         console.error(error);
       }
@@ -46,7 +70,7 @@ const Main = () => {
         chats={chats}
         newChat={(id) => {
           setChatSelected(id);
-          setChange(changed+1)
+          setChange(changed + 1);
         }}
       />
       <Paper style={{ flex: 1 }} elevation={3}>
@@ -60,7 +84,13 @@ const Main = () => {
             Welcome !
           </Typography>
         ) : (
-          <ChatContent chatID={chatSelected} />
+          <ChatContent
+            chatID={chatSelected}
+            majorChange={(id) => {
+              setChange(changed + 1);
+              setChatChange(id);
+            }}
+          />
         )}
       </Paper>
     </div>

@@ -7,16 +7,27 @@ import { InsertEmoticon, Send, AttachFile, Photo } from "@mui/icons-material";
 import axios from "axios";
 import { headers, urls } from "../../../env";
 
-const send = (value: string,chatID: number) => {
-  axios.post(urls.sendMessage,{
-    message: value,
-    type: "text",
-    chatID: chatID
-  }, { headers });
-};
-
-const ChatSend = (props: {chatID: number}) => {
+const ChatSend = (props: { chatID: number; sended: () => void }) => {
   const [message, setMessage] = useState("");
+
+  const send = (value: string, chatID: number) => {
+    try {
+      axios.post(
+        urls.sendMessage,
+        {
+          message: value,
+          type: "text",
+          chatID: chatID,
+        },
+        { headers }
+      );
+      props.sended();
+      setMessage("");
+    } catch (error) {
+      //
+    }
+  };
+
   return (
     <Paper style={{ padding: "10px", display: "flex" }}>
       <IconButton sx={{ p: "10px" }} aria-label="emoji" onClick={(event) => {}}>
@@ -30,12 +41,15 @@ const ChatSend = (props: {chatID: number}) => {
         onChange={(e) => {
           setMessage(e.target.value);
         }}
+        onKeyDown={(e) => {
+          if (e.key == "Enter") send(message, props.chatID);
+        }}
       />
       <IconButton
         type="button"
         sx={{ p: "10px" }}
         aria-label="image"
-        onClick={(e) => send(message,props.chatID)}
+        onClick={(e) => send(message, props.chatID)}
       >
         {message == "" ? <AttachFile /> : <Send />}
       </IconButton>

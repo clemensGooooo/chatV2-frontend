@@ -3,7 +3,7 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import { urls, headers } from "../../../env";
 
-const ChatIcon = (props: { id: number; image: boolean }) => {
+const ChatIcon = (props: { id: number; image: boolean; change: number }) => {
   const [imageSrc, setImageSrc] = useState("");
 
   useEffect(() => {
@@ -27,7 +27,7 @@ const ChatIcon = (props: { id: number; image: boolean }) => {
     }
 
     if (props.image) fetchImage();
-  }, [props.id]);
+  }, [props.id, props.change]);
 
   return <Avatar alt="Chat" src={props.image ? imageSrc : undefined} />;
 };
