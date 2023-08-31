@@ -10,7 +10,7 @@ import { Box } from "@mui/system";
 import axios from "axios";
 import { ChangeEvent, useEffect, useState } from "react";
 import { headers, urls } from "../../../../env";
-import NewChatImage from "./NewChatImage";
+import NewChatImage from "../../../../components/Chat/NewChatImage";
 import NewChatMembers, { User } from "./NewChatMembers";
 
 interface NewChatProps {
