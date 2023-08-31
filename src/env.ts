@@ -48,5 +48,6 @@ export interface Chat {
     name: string;
     chatID: number;
     lastInteraction: string;
-    image: boolean
+    image: boolean;
+    changed: number;
 }

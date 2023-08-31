@@ -9,6 +9,7 @@ import ChatSend from "./ChatSend";
 
 interface ChatContentProps {
   chatID: number;
+  majorChange: (id: number) => void;
 }
 
 export interface Message {
@@ -32,23 +33,11 @@ export interface ChatLarge {
 }
 
 const ChatContent = (props: ChatContentProps) => {
-  const [messages, setMessages] = useState([] as Message[]);
   const [chatInfo, setChatInfo] = useState({} as ChatLarge);
   const [mode, setMode] = useState(0); // 0 main chat - 1 chat info
-  const [user, setUser] = useState("" as string);
 
   useEffect(() => {
-    const fetchChats = async () => {
-      try {
-        const response = await axios.get(urls.getMessages, {
-          headers,
-          params: { chatID: props.chatID },
-        });
-        setMessages(response.data);
-      } catch (error) {
-        console.error(error);
-      }
-    };
+    setMode(0);
 
     const fetchInfo = async () => {
       try {
@@ -61,30 +50,31 @@ const ChatContent = (props: ChatContentProps) => {
         console.error(error);
       }
     };
-    const fetchUsername = async () => {
-      try {
-        const response = await axios.get(urls.user_profile, { headers });
-        setUser(response.data.username);
-      } catch (error) {
-        console.error(error);
-      }
-    };
 
-    fetchUsername();
+
     fetchInfo();
-    fetchChats();
   }, [props.chatID]);
 
   return (
-    <Box sx={{ display: "flex", flexDirection: "column", height: "100%" }}>
+    <Box
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        height: "100%",
+        position: "relative",
+        overflow: "hidden",
+      }}
+    >
+      <ChatHeader chatInfo={chatInfo} clickInfo={() => setMode(1)} />
+      <ChatMessages chatID={props.chatID} />
       {mode == 0 ? (
-        <>
-          <ChatHeader chatInfo={chatInfo} clickInfo={() => setMode(1)} />
-          <ChatMessages messages={messages} user={user} />
-          <ChatSend chatID={chatInfo.chatID} />
-        </>
+        <></>
       ) : (
-        <ChatInfo chat={chatInfo} back={() => setMode(0)} />
+        <ChatInfo
+          chat={chatInfo}
+          back={() => setMode(0)}
+          majorChange={props.majorChange}
+        />
       )}
     </Box>
   );
