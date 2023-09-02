@@ -1,7 +1,7 @@
 import { Avatar } from "@mui/material";
 import axios from "axios";
 import { useState, useEffect } from "react";
-import { urls, headers } from "../../../env";
+import { urls, headers } from "../../env";
 
 const ChatIcon = (props: { id: number; image: boolean; change: number }) => {
   const [imageSrc, setImageSrc] = useState("");

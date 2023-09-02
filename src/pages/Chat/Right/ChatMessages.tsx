@@ -1,3 +1,4 @@
+import { CircularProgress } from "@mui/material";
 import axios from "axios";
 import { useEffect, useRef, useState } from "react";
 import { headers, urls } from "../../../env";
@@ -33,10 +34,13 @@ const ChatMessages = (props: { chatID: number }) => {
   };
 
   useEffect(() => {
-    setMessages([]);
-    setPage(1);
-    setIsLoading(true);
-  }, [props.chatID]);
+    return () => {
+      setMessages([]);
+      loadMessages();
+      setPage(1);
+    };
+  }, [props.chatID,change]);
+
   useEffect(() => {
     const fetchUsername = async () => {
       try {
@@ -48,7 +52,8 @@ const ChatMessages = (props: { chatID: number }) => {
     };
 
     fetchUsername();
-  }, [change, props.chatID]);
+  }, []);
+
   const messagesEndRef = useRef(null as any);
 
   const scrollToBottom = () => {
@@ -60,10 +65,6 @@ const ChatMessages = (props: { chatID: number }) => {
       setPage((prevPage) => prevPage + 1);
     }
   };
-
-  useEffect(() => {
-    loadMessages();
-  }, [page]);
 
   useEffect(() => {
     containerRef.current?.addEventListener("scroll", handleScroll);
@@ -91,9 +92,15 @@ const ChatMessages = (props: { chatID: number }) => {
           overflowY: "auto",
         }}
       >
-        {isLoading && <p>Loading...</p>}
+        {isLoading && (
+          <CircularProgress
+            style={{
+              alignSelf: "center",
+            }}
+          />
+        )}
         {messages.map((message) => (
-          <ChatBox message={message} user={user} />
+          <ChatBox message={message} user={user} key={message._id} />
         ))}
         <div ref={messagesEndRef} />
       </div>

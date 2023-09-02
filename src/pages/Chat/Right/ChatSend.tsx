@@ -6,9 +6,11 @@ import { useState } from "react";
 import { InsertEmoticon, Send, AttachFile, Photo } from "@mui/icons-material";
 import axios from "axios";
 import { headers, urls } from "../../../env";
+import { useTheme } from "@mui/material";
 
 const ChatSend = (props: { chatID: number; sended: () => void }) => {
   const [message, setMessage] = useState("");
+  const theme = useTheme();
 
   const send = (value: string, chatID: number) => {
     try {
@@ -29,7 +31,17 @@ const ChatSend = (props: { chatID: number; sended: () => void }) => {
   };
 
   return (
-    <Paper style={{ padding: "10px", display: "flex" }}>
+    <Paper
+      style={{
+        padding: "10px",
+        display: "flex",
+        borderRadius: "0px",
+        borderBottomRightRadius: "30px",
+        borderTop: "1px solid " + theme.palette.divider,
+        boxShadow: "none"
+      }}
+      elevation={3}
+    >
       <IconButton sx={{ p: "10px" }} aria-label="emoji" onClick={(event) => {}}>
         <InsertEmoticon />
       </IconButton>

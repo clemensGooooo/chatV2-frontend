@@ -10,7 +10,7 @@ import {
 import React from "react";
 import { Chat } from "../../../env";
 import { timeAgo } from "../../../providers/useFunctions";
-import ChatIcon from "./ChatIcon";
+import ChatIcon from "../../../components/Chat/ChatIcon";
 
 const Chats = (props: { clickChat: (id: number) => void; chats: Chat[] }) => {
   return (

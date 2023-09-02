@@ -60,7 +60,7 @@ const EditableField: React.FC<EditableFieldProps> = ({
           if (originalValue === value) setIsEditing(false);
         }}
         rows={multiline ? 3 : undefined}
-        fullWidth={multiline}
+        fullWidth
         helperText={
           error || `${value.length}/${maxChars} characters`
         }

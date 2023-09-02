@@ -16,7 +16,7 @@ const colors = [
 ];
 
 
-const ChatBox = (props: { message: Message,user: string }) => {
+const ChatBox = (props: { message: Message,user: string,key: string }) => {
   const message = props.message;
 
   return (

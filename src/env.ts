@@ -42,6 +42,7 @@ export const urls = {
     getProfile: url_main + "chat/getProfile",
     editDescription: url_main + "chat/editChatText",
     editName: url_main + "chat/editChatName",
+    deleteChat: url_main + "chat/deleteChat",
 }
 
 export interface Chat {
