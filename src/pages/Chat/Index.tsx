@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { Typography } from "@mui/material";
 import Paper from "@mui/material/Paper";
 import axios from "axios";
 import { urls, headers, Chat } from "../../env";
@@ -41,7 +40,6 @@ const Main = () => {
               new Date(b.lastInteraction).getTime() -
               new Date(a.lastInteraction).getTime()
           );
-        console.log(updatedChats);
 
         setChats(updatedChats);
       } catch (error) {
@@ -63,6 +61,7 @@ const Main = () => {
         paddingBottom: "0px",
         marginTop: "30px",
         marginBottom: "-15px",
+        borderRadius: "30px",
       }}
       elevation={4}
     >
@@ -89,7 +88,11 @@ const Main = () => {
             chatID={chatSelected}
             majorChange={(id) => {
               setChange(changed + 1);
-              setChatChange(id);
+              if (id == 0) {
+                setChatSelected(undefined);
+              } else {
+                setChatChange(id);
+              }
             }}
           />
         )}

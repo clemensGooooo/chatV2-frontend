@@ -3,7 +3,6 @@ import { Box, Typography, Button } from "@mui/material";
 import axios from "axios";
 import NewChatImage from "../../../../components/Chat/NewChatImage";
 import { headers, urls } from "../../../../env";
-import "./roundedButton.css";
 
 interface EditProfileImageProps {
   chatID: number;

@@ -1,9 +1,20 @@
 import React, { useEffect, useState } from "react";
-import { AppBar, Box, IconButton, Paper, Toolbar, Typography } from "@mui/material";
+import {
+  AppBar,
+  Box,
+  Button,
+  IconButton,
+  Paper,
+  Toolbar,
+  Typography,
+  useTheme,
+} from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import EditProfileImage from "./EditProfileImage";
 import { ChatLarge } from "../ChatContent";
 import { Name, Description } from "./EditableField";
+import "./Styles.css";
+import Delete from "./DeleteChat";
 
 interface ChatInfoProps {
   chat: ChatLarge;
@@ -11,7 +22,7 @@ interface ChatInfoProps {
   majorChange: (id: number) => void;
 }
 
-const ChatInfo: React.FC<ChatInfoProps> = ({ chat, back,majorChange }) => {
+const ChatInfo: React.FC<ChatInfoProps> = ({ chat, back, majorChange }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
@@ -24,18 +35,23 @@ const ChatInfo: React.FC<ChatInfoProps> = ({ chat, back,majorChange }) => {
       back();
     }, 500);
   };
+  const theme = useTheme();
 
   const styles = {
     paper: {
       zindex: 1,
+      overflow: "scroll",
       width: "100%",
       position: "absolute",
-      borderTopLeftRadius: "0px",
-      borderTopRightRadius: "0px",
-      textAlign: "center",
+      display: "block",
+      borderBottomRightRadius: "30px",
+      borderTopRightRadius: "30px",
+      textAlign: "left",
       height: "100%",
       left: isOpen ? "0%" : "100%",
       transition: "left 0.5s ease-in-out",
+      boxShadow: "none",
+      backgroundColor: theme.palette.background.paper,
     },
     closeButton: {
       display: "block",
@@ -43,21 +59,33 @@ const ChatInfo: React.FC<ChatInfoProps> = ({ chat, back,majorChange }) => {
       right: "10px",
     },
     box: {
-      padding: "40px",
+      padding: "30px",
+      margin: "10px",
+      marginTop: "20px",
+      borderLeft: "2px solid " + theme.palette.primary.main,
+      borderTop: "2px solid " + theme.palette.primary.main,
+    },
+    box2: {
+      padding: "30px",
+      margin: "10px",
     },
     body: {
       padding: "10px",
-      background: "rgba(0, 0, 0, 0.05)",
-      height: "100%"
+      height: "100%",
     },
   };
   return (
-    <Paper elevation={5} sx={styles.paper}>
-      <AppBar position="static" >
+    <Paper elevation={2} sx={styles.paper}>
+      <AppBar
+        position="static"
+        sx={{
+          borderTopRightRadius: "30px",
+          boxShadow: "none",
+        }}
+        color={"secondary"}
+      >
         <Toolbar>
-          <Typography variant="h5">
-            Edit the chat
-          </Typography>
+          <Typography variant="h5">Edit the chat</Typography>
           <IconButton
             aria-label="close"
             sx={styles.closeButton}
@@ -74,6 +102,9 @@ const ChatInfo: React.FC<ChatInfoProps> = ({ chat, back,majorChange }) => {
         <Box sx={styles.box}>
           <Name name={chat.name} chatID={chat.chatID} />
           <Description description={chat.chatText} chatID={chat.chatID} />
+        </Box>
+        <Box sx={styles.box2}>
+          <Delete chatID={chat.chatID} majorChange={majorChange} />
         </Box>
       </div>
     </Paper>

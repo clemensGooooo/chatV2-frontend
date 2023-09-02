@@ -1,7 +1,7 @@
 import { Box, AppBar, Toolbar, Typography } from "@mui/material";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { headers, urls } from "../../../env";
+import { Chat, headers, urls } from "../../../env";
 import ChatHeader from "./ChatHeader";
 import ChatInfo from "./ChatInfo/Index";
 import ChatMessages from "./ChatMessages";
@@ -47,10 +47,9 @@ const ChatContent = (props: ChatContentProps) => {
         });
         setChatInfo(response.data);
       } catch (error) {
-        console.error(error);
+        // console.error(error);
       }
     };
-
 
     fetchInfo();
   }, [props.chatID]);
@@ -65,7 +64,7 @@ const ChatContent = (props: ChatContentProps) => {
         overflow: "hidden",
       }}
     >
-      <ChatHeader chatInfo={chatInfo} clickInfo={() => setMode(1)} />
+      <ChatHeader chat={chatInfo} clickInfo={() => setMode(1)} />
       <ChatMessages chatID={props.chatID} />
       {mode == 0 ? (
         <></>
@@ -73,7 +72,12 @@ const ChatContent = (props: ChatContentProps) => {
         <ChatInfo
           chat={chatInfo}
           back={() => setMode(0)}
-          majorChange={props.majorChange}
+          majorChange={(id) => {
+            if (id == 0) {
+              setMode(0);
+            }
+            props.majorChange(id);
+          }}
         />
       )}
     </Box>
