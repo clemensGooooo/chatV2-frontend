@@ -16,6 +16,8 @@ const ChatMessages = (props: { chatID: number }) => {
 
   const loadMessages = async () => {
     try {
+      console.log("Data Request!");
+      
       setIsLoading(true);
       const response = await axios.get(
         urls.getMessages + `?chatID=${props.chatID}&page=${page}`,
@@ -34,12 +36,10 @@ const ChatMessages = (props: { chatID: number }) => {
   };
 
   useEffect(() => {
-    return () => {
-      setMessages([]);
-      loadMessages();
-      setPage(1);
-    };
-  }, [props.chatID,change]);
+    setMessages([]);
+    loadMessages();
+    setPage(1);
+  }, [props.chatID, change]);
 
   useEffect(() => {
     const fetchUsername = async () => {
@@ -63,6 +63,7 @@ const ChatMessages = (props: { chatID: number }) => {
   const handleScroll = () => {
     if (containerRef.current?.scrollTop === 0 && !isLoading) {
       setPage((prevPage) => prevPage + 1);
+      loadMessages();
     }
   };
 
