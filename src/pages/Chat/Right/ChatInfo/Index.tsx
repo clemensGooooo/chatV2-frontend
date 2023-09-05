@@ -67,11 +67,11 @@ const ChatInfo: React.FC<ChatInfoProps> = ({ chat, back, majorChange }) => {
     },
     box2: {
       padding: "30px",
+      paddingBottom: "0px",
       margin: "10px",
     },
     body: {
       padding: "10px",
-      height: "100%",
     },
   };
   return (
