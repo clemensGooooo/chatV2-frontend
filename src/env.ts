@@ -1,6 +1,9 @@
 
 export const url_main = "http://localhost:5000/"
 
+export const app_text = {
+    name: "Chat App"
+}
 export const token_name = "token"
 export const token = localStorage.getItem(token_name);
 
