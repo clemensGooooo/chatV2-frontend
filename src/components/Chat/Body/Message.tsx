@@ -1,6 +1,6 @@
 import { Paper, Typography } from "@mui/material";
 import { timeAgo } from "../../../providers/useFunctions";
-import { Message } from "./ChatContent";
+import { Message } from "../../../pages/Chat/Right/ChatFormats";
 import Image from "./Image";
 
 const colors = [

@@ -1,35 +1,15 @@
-import { Box, AppBar, Toolbar, Typography } from "@mui/material";
+import { Box } from "@mui/material";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { Chat, headers, urls } from "../../../env";
-import ChatHeader from "./ChatHeader";
-import ChatInfo from "./ChatInfo/Index";
+import { headers, urls } from "../../../../env";
+import { ChatLarge } from "../ChatFormats";
+import ChatHeader from "../ChatHeader";
+import ChatInfo from "../ChatInfo/Index";
 import ChatMessages from "./ChatMessages";
-import ChatSend from "./ChatSend";
 
 interface ChatContentProps {
   chatID: number;
   majorChange: (id: number) => void;
-}
-
-export interface Message {
-  _id: string;
-  user: string;
-  message: string;
-  timestamp: string;
-  chatID: number;
-  type: string;
-  readed: any[]; ///////////////////////////////////////////////////////////////////////
-  __v: number;
-}
-
-export interface ChatLarge {
-  chatID: number;
-  name: string;
-  members: string[];
-  lastInteraction: string;
-  chatText: string;
-  image: boolean;
 }
 
 const ChatContent = (props: ChatContentProps) => {
