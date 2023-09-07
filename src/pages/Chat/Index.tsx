@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import Paper from "@mui/material/Paper";
 import axios from "axios";
 import { urls, headers, Chat } from "../../env";
-import ChatContent from "./Right/ChatContent";
+import ChatContent from "./Right/Body/Body";
 import Left from "./Left/Index";
 import Welcome from "./Welcome";
 

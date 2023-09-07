@@ -1,13 +1,6 @@
-import {
-  AppBar,
-  Avatar,
-  Box,
-  Button,
-  Toolbar,
-  Typography,
-} from "@mui/material";
+import { AppBar, Box, Toolbar, Typography } from "@mui/material";
 import ChatIcon from "../../../components/Chat/ChatIcon";
-import { ChatLarge } from "./ChatContent";
+import { ChatLarge } from "./ChatFormats";
 
 const ChatHeader = (props: { chat: ChatLarge; clickInfo: () => void }) => {
   return (

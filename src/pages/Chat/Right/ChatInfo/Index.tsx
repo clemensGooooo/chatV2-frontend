@@ -11,10 +11,10 @@ import {
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import EditProfileImage from "./EditProfileImage";
-import { ChatLarge } from "../ChatContent";
 import { Name, Description } from "./EditableField";
 import "./Styles.css";
 import Delete from "./DeleteChat";
+import { ChatLarge } from "../ChatFormats";
 
 interface ChatInfoProps {
   chat: ChatLarge;

@@ -1,10 +1,10 @@
 import { CircularProgress } from "@mui/material";
 import axios from "axios";
 import { useEffect, useRef, useState } from "react";
-import { headers, urls } from "../../../env";
-import { Message } from "./ChatContent";
-import ChatSend from "./ChatSend";
-import ChatBox from "./Message";
+import { headers, urls } from "../../../../env";
+import { Message } from "../ChatFormats";
+import ChatSend from "../Send/Send";
+import ChatBox from "../../../../components/Chat/Body/Message";
 
 const ChatMessages = (props: { chatID: number }) => {
   const [messages, setMessages] = useState([] as Message[]);
