@@ -9,11 +9,3 @@ export interface Message {
     __v: number;
 }
 
-export interface ChatLarge {
-    chatID: number;
-    name: string;
-    members: string[];
-    lastInteraction: string;
-    chatText: string;
-    image: boolean;
-}

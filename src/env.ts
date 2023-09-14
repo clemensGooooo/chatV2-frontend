@@ -47,11 +47,3 @@ export const urls = {
     editName: url_main + "chat/editChatName",
     deleteChat: url_main + "chat/deleteChat",
 }
-
-export interface Chat {
-    name: string;
-    chatID: number;
-    lastInteraction: string;
-    image: boolean;
-    changed: number;
-}
