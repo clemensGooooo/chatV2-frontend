@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
 import Paper from "@mui/material/Paper";
 import axios from "axios";
-import { urls, headers, Chat } from "../../env";
-import ChatContent from "./Right/Body/Body";
+import { urls, headers } from "../../env";
+import Body from "./Right/Index";
 import Left from "./Left/Index";
 import Welcome from "./Welcome";
+import { Chat } from "../../static/types";
 
 const Main = () => {
   const [chats, setChats] = useState([] as Chat[]);
@@ -15,6 +16,7 @@ const Main = () => {
   const [changed, setChange] = useState(0);
 
   useEffect(() => {
+    
     const fetchChats = async () => {
       try {
         const response = await axios.get(urls.getChats, { headers });
@@ -54,6 +56,7 @@ const Main = () => {
     <Paper
       style={{
         maxWidth: 1400,
+        minWidth: 700,
         display: "flex",
         flex: 1,
         height: "85vh",
@@ -84,7 +87,7 @@ const Main = () => {
         {chatSelected == undefined ? (
           <Welcome />
         ) : (
-          <ChatContent
+          <Body
             chatID={chatSelected}
             majorChange={(id) => {
               setChange(changed + 1);

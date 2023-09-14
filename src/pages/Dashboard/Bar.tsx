@@ -25,7 +25,14 @@ export const Bar = (props: { isAdmin: boolean }) => {
   return (
     <AppBar position="fixed" sx={props.isAdmin ? styleAppBar : undefined}>
       <Toolbar>
-        <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+        <Typography
+          variant="h6"
+          component="div"
+          sx={{ flexGrow: 1, cursor: "pointer" }}
+          onClick={() => {
+            window.location.href = "/dashboard";
+          }}
+        >
           {app_text.name}
         </Typography>
         <div style={style}>

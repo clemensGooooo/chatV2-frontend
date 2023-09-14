@@ -8,9 +8,9 @@ import {
   Typography,
 } from "@mui/material";
 import React from "react";
-import { Chat } from "../../../env";
 import { timeAgo } from "../../../providers/useFunctions";
 import ChatIcon from "../../../components/Chat/ChatIcon";
+import { Chat } from "../../../static/types";
 
 const Chats = (props: { clickChat: (id: number) => void; chats: Chat[] }) => {
   return (

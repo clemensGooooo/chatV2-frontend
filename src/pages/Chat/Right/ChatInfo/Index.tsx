@@ -14,10 +14,10 @@ import EditProfileImage from "./EditProfileImage";
 import { Name, Description } from "./EditableField";
 import "./Styles.css";
 import Delete from "./DeleteChat";
-import { ChatLarge } from "../ChatFormats";
+import { Info } from "../../../../static/types";
 
 interface ChatInfoProps {
-  chat: ChatLarge;
+  chat: Info;
   back: () => void;
   majorChange: (id: number) => void;
 }

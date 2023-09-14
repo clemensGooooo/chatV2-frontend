@@ -1,67 +1,98 @@
-import { InsertEmoticon } from "@mui/icons-material";
-import { IconButton, Menu } from "@mui/material";
+import { Avatar, Paper, Typography } from "@mui/material";
 import { useState } from "react";
 import { emojis } from "../../../../static/emoji";
-import "./emoji.css"
+import { useTheme } from "@mui/material";
+import Tabs from "@mui/material/Tabs";
+import Tab from "@mui/material/Tab";
+import Box from "@mui/material/Box";
+import React from "react";
+import "./emoji.css";
+interface TabPanelProps {
+  children?: React.ReactNode;
+  index: number;
+  value: number;
+}
 
+function CustomTabPanel(props: TabPanelProps) {
+  const { children, value, index } = props;
+
+  return (
+    <div
+      role="tabpanel"
+      hidden={value !== index}
+      style={{
+        height: "20vh",
+        width: "100%",
+        overflowY: "scroll",
+      }}
+    >
+      {value === index && (
+        <Box sx={{ p: 3 }}>
+          <Typography>{children}</Typography>
+        </Box>
+      )}
+    </div>
+  );
+}
 
 const Emoji = (props: { setEmoji: (e: string) => void }) => {
-  const [tab, setTab] = useState(0 as number);
-  const [open, setOpen] = useState(null as null | HTMLElement);
+  const [value, setValue] = React.useState(0);
+  const theme = useTheme();
+
+  const handleChange = (event: React.SyntheticEvent, newValue: number) => {
+    setValue(newValue);
+  };
 
   const handleEmojiClick = (emoji: string) => {
     props.setEmoji(emoji);
   };
-
-  const handleClick = (event: React.MouseEvent<HTMLElement>) => {
-    setOpen(event.currentTarget);
-  };
-  const handleClose = () => {
-    setOpen(null);
-  };
-
   return (
-    <>
-      <IconButton
-        sx={{ p: "10px" }}
-        aria-label="emoji"
-        onClick={handleClick}
-        aria-controls={open ? 'basic-menu' : undefined}
-        aria-haspopup="true"
-        aria-expanded={open ? 'true' : undefined}
-      >
-        <InsertEmoticon />
-      </IconButton>
-      <Menu
-        MenuListProps={{
-          "aria-labelledby": "basic-button",
-        }}
-        open={Boolean(open)}
-        onClose={handleClose}
-      >
-        <div id="emojiSection">
-          
-          {emojis.map((emoji, i) => (
-            <div key={emoji.name}>
-              {emoji.name === emojis[tab].name ? (
-                <h5 className="active">{emoji.name}</h5>
-              ) : (
-                <h6 onClick={() => setTab(i)}>{emoji.name}</h6>
-              )}
-            </div>
-          ))}
-
-          <br />
-          <br />
-
-          {emojis[tab].icon.split(/([\uD800-\uDBFF][\uDC00-\uDFFF])/).map((emoji: string, index: number) => (
-            <a key={index} onClick={() => handleEmojiClick(emoji)}>
-              {emoji}
-            </a>
-          ))}
-        </div>
-      </Menu>
-    </>
+    <Paper
+      sx={{
+        flex: 1,
+        position: "sticky",
+        bottom: "10px",
+        width: "100%",
+        display: "flex",
+        flexDirection: "column",
+        border: "1px red solid",
+      }}
+      elevation={3}
+    >
+      <Box sx={{ width: "100%" }}>
+        <Box
+          sx={{
+            borderBottom: 1,
+            borderColor: "divider",
+            position: "relative",
+            display: "inline-block",
+            overflow: "hidden",
+            maxWidth: { xs: "100%", sm: "100%" }
+          }}
+        >
+          <Tabs
+            value={value}
+            variant="scrollable"
+            onChange={handleChange}
+            scrollButtons
+            allowScrollButtonsMobile
+          >
+            {emojis.map((category) => (
+              <Tab label={category.name} />
+            ))}
+          </Tabs>
+        </Box>
+        {emojis.map((category, i) => (
+          <CustomTabPanel value={value} index={i}>
+            {category.icon.map((ico) => (
+              <p className="emoji" onClick={() => handleEmojiClick(ico)}>
+                {ico}
+              </p>
+            ))}
+          </CustomTabPanel>
+        ))}
+      </Box>
+    </Paper>
   );
 };
 

@@ -1,6 +1,6 @@
 import { Paper, Typography } from "@mui/material";
 import { useState } from "react";
-import { Chat } from "../../../env";
+import { Chat } from "../../../static/types";
 import Chats from "./Chats";
 import NewChat from "./NewChat/NewChat";
 import NewChatButton from "./NewChat/NewChatButton";
@@ -16,6 +16,7 @@ const Left = (props: {
     <div
       style={{
         width: props.width,
+        minWidth: props.width,
         position: "relative",
         display: "flex",
         flexDirection: "column",

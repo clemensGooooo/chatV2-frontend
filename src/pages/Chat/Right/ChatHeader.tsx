@@ -1,8 +1,8 @@
 import { AppBar, Box, Toolbar, Typography } from "@mui/material";
 import ChatIcon from "../../../components/Chat/ChatIcon";
-import { ChatLarge } from "./ChatFormats";
+import { Info } from "../../../static/types";
 
-const ChatHeader = (props: { chat: ChatLarge; clickInfo: () => void }) => {
+const ChatHeader = (props: { chat: Info; clickInfo: () => void }) => {
   return (
     <AppBar
       position="static"
