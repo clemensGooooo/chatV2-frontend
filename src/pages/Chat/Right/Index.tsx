@@ -70,7 +70,7 @@ const Body = (props: ChatContentProps) => {
 
   useEffect(() => {
     loadMessages();
-  }, [page, change]);
+  }, [page, change,props.chatID]);
 
   useEffect(() => {
     const getUsername = async () => {
@@ -119,6 +119,8 @@ const Body = (props: ChatContentProps) => {
                 sx={{
                   left: "0",
                   right: 0,
+                  top: 20,
+                  position: "absolute",
                   margin: "auto",
                   borderRadius: "40px",
                   padding: "10px 20px",
@@ -137,6 +139,8 @@ const Body = (props: ChatContentProps) => {
                   }}
                 />
               )}
+
+
               {messages.map((message) => (
                 <ChatBox message={message} user={user} key={message._id} />
               ))}
