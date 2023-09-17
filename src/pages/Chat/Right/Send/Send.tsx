@@ -10,8 +10,12 @@ import File from "./FileSend";
 import Requests from "../../../../services/requests";
 import { InsertEmoticon } from "@mui/icons-material";
 import CloseIcon from "@mui/icons-material/Close";
+import { Message } from "../ChatFormats";
 
-const ChatSend = (props: { chatID: number; sended: () => void }) => {
+const ChatSend = (props: {
+  chatID: number;
+  sended: (data: Message) => void;
+}) => {
   const [message, setMessage] = useState("");
   const theme = useTheme();
   const [open, setOpen] = useState(false as Boolean);
@@ -20,12 +24,12 @@ const ChatSend = (props: { chatID: number; sended: () => void }) => {
     setOpen(!open);
   };
 
-  const send = (
+  const send = async (
     e?: React.KeyboardEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     if ((e && e.key === "Enter") || e == undefined) {
-      Requests.send(message, props.chatID);
-      props.sended();
+      let messageSend = await Requests.send(message, props.chatID);
+      props.sended(messageSend);
       setMessage("");
     }
   };
@@ -67,7 +71,7 @@ const ChatSend = (props: { chatID: number; sended: () => void }) => {
         </IconButton>
 
         <InputBase
-          sx={{ ml: 1, flex: 1,fontSize: "large" }}
+          sx={{ ml: 1, flex: 1, fontSize: "large" }}
           placeholder="Your chat message"
           inputProps={{ "aria-label": "chat message" }}
           value={message}

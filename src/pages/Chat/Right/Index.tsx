@@ -10,8 +10,7 @@ import { headers, urls } from "../../../env";
 import { Message } from "./ChatFormats";
 import ChatSend from "./Send/Send";
 import ChatBox from "../../../components/Chat/Body/Message";
-import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
-import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
+import LoadBefore from "../../../components/Chat/Body/LoadBefore";
 
 interface ChatContentProps {
   chatID: number;
@@ -35,13 +34,15 @@ const Body = (props: ChatContentProps) => {
       let chatInfo = await Requests.fetchInfo(props.chatID);
       setChatInfo(chatInfo);
     };
-
     getChatInfo();
+
+    setMessages([]);
+    setPage(1);
   }, [props.chatID]);
 
   const loadMessages = async () => {
     try {
-      console.log("Data Request!");
+      console.log("Data Request!", props.chatID);
 
       setIsLoading(true);
       const response = await axios.get(
@@ -51,7 +52,7 @@ const Body = (props: ChatContentProps) => {
           params: { chatID: props.chatID },
         }
       );
-      const newMessages = response.data.reverse();
+      const newMessages = response.data;
       setMessages((prevMessages) => [...newMessages, ...prevMessages]);
     } catch (error) {
       console.error("Error fetching messages:", error);
@@ -70,7 +71,7 @@ const Body = (props: ChatContentProps) => {
 
   useEffect(() => {
     loadMessages();
-  }, [page, change,props.chatID]);
+  }, [page, props.chatID]);
 
   useEffect(() => {
     const getUsername = async () => {
@@ -86,87 +87,76 @@ const Body = (props: ChatContentProps) => {
       scrollToBottom();
     }, 200);
 
-    setMessages([]);
-    setPage(1);
-  }, [props.chatID]);
+  }, [props.chatID,change]);
 
   return (
-    <Box sx={{
-      position: "relative",
-      height: "100%",
-      width: "100%",
-      display: "flex",
-      flexDirection: "column",
-      overflow: "hidden",
-    }}>
-        <ChatHeader chat={chatInfo} clickInfo={() => setMode(1)} />
-        {mode == 2 ? (
-          <></>
-        ) : (
-          <>
-            <Box
-              ref={chatMessages}
-              sx={{
-                position: "relative",
-                display: "flex",
-                flexDirection: "column",
-                paddingTop: "15px",
-                height: "100%",
-                overflowY: "scroll",
-              }}
-            >
-              <Button
-                sx={{
-                  left: "0",
-                  right: 0,
-                  top: 20,
-                  position: "absolute",
-                  margin: "auto",
-                  borderRadius: "40px",
-                  padding: "10px 20px",
+    <Box
+      sx={{
+        position: "relative",
+        height: "100%",
+        width: "100%",
+        display: "flex",
+        flexDirection: "column",
+        overflow: "hidden",
+      }}
+    >
+      <ChatHeader chat={chatInfo} clickInfo={() => setMode(1)} />
+      {mode == 2 ? (
+        <></>
+      ) : (
+        <>
+          <Box
+            ref={chatMessages}
+            sx={{
+              position: "relative",
+              display: "flex",
+              flexDirection: "column",
+              paddingTop: "15px",
+              height: "100%",
+              overflowY: "scroll",
+            }}
+          >
+            {!messages.some((msg) => msg.user === "none") ? (
+              <LoadBefore onClick={moveUp} />
+            ) : (
+              <></>
+            )}
+            {isLoading && (
+              <CircularProgress
+                style={{
+                  alignSelf: "center",
                 }}
-                variant="outlined"
-                startIcon={<ArrowUpwardIcon />}
-                onClick={moveUp}
-              >
-                Load messages before
-              </Button>
+              />
+            )}
+            {messages.map((message) => (
+              <ChatBox message={message} user={user} key={message._id} />
+            ))}
+            <div ref={messagesEndRef} />
+          </Box>
 
-              {isLoading && (
-                <CircularProgress
-                  style={{
-                    alignSelf: "center",
-                  }}
-                />
-              )}
-
-
-              {messages.map((message) => (
-                <ChatBox message={message} user={user} key={message._id} />
-              ))}
-              <div ref={messagesEndRef} />
-            </Box>
-
-            <ChatSend
-              chatID={props.chatID}
-              sended={() => setChange(change + 1)}
-            />
-          </>
-        )}
-        {mode == 1 ? (
-          <ChatInfo
-            chat={chatInfo}
-            back={() => setMode(0)}
-            majorChange={(id) => {
-              if (id == 0) {
-                setMode(0);
-              }
-              props.majorChange(id);
+          <ChatSend
+            chatID={props.chatID}
+            sended={(newOne) => {
+              setChange(change+1);
+              setMessages((messages) => [...messages, newOne]);
             }}
           />
-        ) : (
-          <></>
-        )}
+        </>
+      )}
+      {mode == 1 ? (
+        <ChatInfo
+          chat={chatInfo}
+          back={() => setMode(0)}
+          majorChange={(id) => {
+            if (id == 0) {
+              setMode(0);
+            }
+            props.majorChange(id);
+          }}
+        />
+      ) : (
+        <></>
+      )}
     </Box>
   );
 };
