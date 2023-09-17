@@ -1,5 +1,6 @@
 import axios from "axios";
 import { urls, headers } from "../env";
+import { Message } from "../pages/Chat/Right/ChatFormats";
 import { Info } from "../static/types";
 
 class Requests {
@@ -21,13 +22,13 @@ class Requests {
         }
     };
 
-    send = async (value: string, chatID: number, file?: File): Promise<boolean> => {
+    send = async (value: string, chatID: number, file?: File) => {
         if (value === "") {
             throw new Error(this.error);
         }
 
         try {
-            await axios.post(
+            let res = await axios.post(
                 urls.sendMessage,
                 {
                     message: value,
@@ -36,7 +37,9 @@ class Requests {
                 },
                 { headers }
             );
-            return true;
+            let data: Message = res.data;
+            
+            return data;
         } catch (error) {
             throw new Error(this.error);
         }
