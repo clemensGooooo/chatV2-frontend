@@ -8,5 +8,19 @@
 }
 
 .emoji:hover {
-    transform: scale(2);
+  transform: scale(2);
+}
+
+.tab {
+  cursor: pointer;
+  flex: 1;
+  display: flex;
+  padding: 0px 14px;
+  transition: 0.5s;
+  padding: 10px 0px;
+  justify-content: center;
+}
+
+.tab:hover {
+  opacity: 0.5;
 }
