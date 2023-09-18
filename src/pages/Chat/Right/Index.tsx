@@ -4,7 +4,7 @@ import ChatHeader from "./ChatHeader";
 import ChatInfo from "./ChatInfo/Index";
 import Requests from "../../../services/requests";
 import { Info } from "../../../static/types";
-import { Button, CircularProgress, IconButton } from "@mui/material";
+import { CircularProgress } from "@mui/material";
 import axios from "axios";
 import { headers, urls } from "../../../env";
 import { Message } from "./ChatFormats";
@@ -12,6 +12,24 @@ import ChatSend from "./Send/Send";
 import ChatBox from "../../../components/Chat/Body/Message";
 import LoadBefore from "../../../components/Chat/Body/LoadBefore";
 
+const styles = {
+  main: {
+    position: "relative",
+    height: "100%",
+    width: "100%",
+    display: "flex",
+    flexDirection: "column",
+    overflow: "hidden"
+  },
+  chatMessages: {
+      position: "relative",
+      display: "flex",
+      flexDirection: "column",
+      paddingTop: "15px",
+      height: "100%",
+      overflowY: "scroll",
+  }
+}
 interface ChatContentProps {
   chatID: number;
   majorChange: (id: number) => void;
@@ -86,19 +104,11 @@ const Body = (props: ChatContentProps) => {
     setTimeout(() => {
       scrollToBottom();
     }, 200);
-
-  }, [props.chatID,change]);
+  }, [props.chatID, change]);
 
   return (
     <Box
-      sx={{
-        position: "relative",
-        height: "100%",
-        width: "100%",
-        display: "flex",
-        flexDirection: "column",
-        overflow: "hidden",
-      }}
+      sx={styles.main}
     >
       <ChatHeader chat={chatInfo} clickInfo={() => setMode(1)} />
       {mode == 2 ? (
@@ -107,14 +117,7 @@ const Body = (props: ChatContentProps) => {
         <>
           <Box
             ref={chatMessages}
-            sx={{
-              position: "relative",
-              display: "flex",
-              flexDirection: "column",
-              paddingTop: "15px",
-              height: "100%",
-              overflowY: "scroll",
-            }}
+            sx={styles.chatMessages}
           >
             {!messages.some((msg) => msg.user === "none") ? (
               <LoadBefore onClick={moveUp} />
@@ -123,8 +126,8 @@ const Body = (props: ChatContentProps) => {
             )}
             {isLoading && (
               <CircularProgress
-                style={{
-                  alignSelf: "center",
+                sx={{
+                  alignSelf: "center"
                 }}
               />
             )}
@@ -137,7 +140,7 @@ const Body = (props: ChatContentProps) => {
           <ChatSend
             chatID={props.chatID}
             sended={(newOne) => {
-              setChange(change+1);
+              setChange(change + 1);
               setMessages((messages) => [...messages, newOne]);
             }}
           />

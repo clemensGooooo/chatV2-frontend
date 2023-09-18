@@ -1,4 +1,4 @@
-import { Avatar, Paper, Typography } from "@mui/material";
+import { Avatar, Paper, TextField, Typography } from "@mui/material";
 import { useState } from "react";
 import { emojis } from "../../../../static/emoji";
 import { useTheme } from "@mui/material";
@@ -37,6 +37,7 @@ function CustomTabPanel(props: TabPanelProps) {
 
 const Emoji = (props: { setEmoji: (e: string) => void }) => {
   const [value, setValue] = React.useState(0);
+  const [currentPage, setPage] = React.useState(0);
   const theme = useTheme();
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
@@ -50,48 +51,44 @@ const Emoji = (props: { setEmoji: (e: string) => void }) => {
     <Paper
       sx={{
         flex: 1,
-        position: "sticky",
-        bottom: "10px",
-        width: "100%",
-        display: "flex",
-        flexDirection: "column",
-        border: "1px red solid",
+        position: "relative"
       }}
-      elevation={3}
+      elevation={1}
     >
-      <Box sx={{ width: "100%" }}>
         <Box
           sx={{
-            borderBottom: 1,
-            borderColor: "divider",
+            overflowX: "scroll",
             position: "relative",
-            display: "inline-block",
-            overflow: "hidden",
-            maxWidth: { xs: "100%", sm: "100%" }
+            display: "flex",
+            justifyContent: "space-between",
           }}
         >
-          <Tabs
-            value={value}
-            variant="scrollable"
-            onChange={handleChange}
-            scrollButtons
-            allowScrollButtonsMobile
-          >
-            {emojis.map((category) => (
-              <Tab label={category.name} />
-            ))}
-          </Tabs>
+          {emojis.map((category, i) => (
+            <div
+            onClick={() => setPage(i)}
+              className="tab"
+              style={{
+                borderBottom: theme.palette.divider+ " 2px solid"
+              }}
+            >
+              <Avatar sx={{ bgcolor: theme.palette.primary.main }} component="div">{category.name}</Avatar>
+            </div>
+          ))}
         </Box>
-        {emojis.map((category, i) => (
-          <CustomTabPanel value={value} index={i}>
-            {category.icon.map((ico) => (
-              <p className="emoji" onClick={() => handleEmojiClick(ico)}>
-                {ico}
-              </p>
-            ))}
-          </CustomTabPanel>
-        ))}
-      </Box>
+        <Box
+          sx={{
+            padding: "10px",
+            width: "100%",
+            maxHeight: "200px",
+            overflowY: "auto",
+          }}
+        >
+          {emojis[currentPage].icon.map((ico) => (
+            <p className="emoji" onClick={() => handleEmojiClick(ico)}>
+              {ico}
+            </p>
+          ))}
+        </Box>
     </Paper>
   );
 };
