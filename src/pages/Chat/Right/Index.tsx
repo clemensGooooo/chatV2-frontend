@@ -11,6 +11,7 @@ import { Message } from "./ChatFormats";
 import ChatSend from "./Send/Send";
 import ChatBox from "../../../components/Chat/Body/Message";
 import LoadBefore from "../../../components/Chat/Body/LoadBefore";
+import Page from "./Upload/Page";
 
 const styles = {
   main: {
@@ -19,17 +20,17 @@ const styles = {
     width: "100%",
     display: "flex",
     flexDirection: "column",
-    overflow: "hidden"
+    overflow: "hidden",
   },
   chatMessages: {
-      position: "relative",
-      display: "flex",
-      flexDirection: "column",
-      paddingTop: "15px",
-      height: "100%",
-      overflowY: "scroll",
-  }
-}
+    position: "relative",
+    display: "flex",
+    flexDirection: "column",
+    paddingTop: "15px",
+    height: "100%",
+    overflowY: "scroll",
+  },
+};
 interface ChatContentProps {
   chatID: number;
   majorChange: (id: number) => void;
@@ -45,6 +46,14 @@ const Body = (props: ChatContentProps) => {
   const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef(null as any);
   const chatMessages = useRef(null as null | HTMLDivElement);
+  const [uploadedFile, setUploadedFile] = useState<File | null>(null);
+
+  const handleFileUpload = (file: File | null) => {
+    setUploadedFile(file);
+    if (typeof file != null && file instanceof File) {
+      setMode(2);
+    }
+  };
 
   useEffect(() => {
     setMode(0);
@@ -107,18 +116,13 @@ const Body = (props: ChatContentProps) => {
   }, [props.chatID, change]);
 
   return (
-    <Box
-      sx={styles.main}
-    >
+    <Box sx={styles.main}>
       <ChatHeader chat={chatInfo} clickInfo={() => setMode(1)} />
-      {mode == 2 ? (
+      {mode == -1 ? (
         <></>
       ) : (
         <>
-          <Box
-            ref={chatMessages}
-            sx={styles.chatMessages}
-          >
+          <Box ref={chatMessages} sx={styles.chatMessages}>
             {!messages.some((msg) => msg.user === "none") ? (
               <LoadBefore onClick={moveUp} />
             ) : (
@@ -127,7 +131,7 @@ const Body = (props: ChatContentProps) => {
             {isLoading && (
               <CircularProgress
                 sx={{
-                  alignSelf: "center"
+                  alignSelf: "center",
                 }}
               />
             )}
@@ -143,6 +147,7 @@ const Body = (props: ChatContentProps) => {
               setChange(change + 1);
               setMessages((messages) => [...messages, newOne]);
             }}
+            onFileUpload={handleFileUpload}
           />
         </>
       )}
@@ -156,6 +161,16 @@ const Body = (props: ChatContentProps) => {
             }
             props.majorChange(id);
           }}
+        />
+      ) : (
+        <></>
+      )}
+
+      {mode == 2 ? (
+        <Page
+          back={() => setMode(0)}
+          change={() => {}}
+          uploadedFile={uploadedFile}
         />
       ) : (
         <></>

@@ -1,10 +1,17 @@
 import { AttachFile } from "@mui/icons-material";
 import { IconButton } from "@mui/material";
-import { useRef, ChangeEvent } from "react";
+import { useRef, ChangeEvent, useState } from "react";
+import { Photo } from "@mui/icons-material";
 
+interface FileUploadProps {
+  onFileUpload: (file: File | null) => void;
+  variant: 0 | 1;
+}
 
-const File = () => {
+const File: React.FC<FileUploadProps> = ({ onFileUpload, variant }) => {
   const fileInputRef = useRef<HTMLInputElement | null>(null);
+
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
 
   const handleButtonClick = () => {
     if (fileInputRef.current) {
@@ -15,7 +22,8 @@ const File = () => {
   const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
-      //
+      setSelectedFile(file);
+      onFileUpload(file);
     }
   };
 
@@ -27,9 +35,15 @@ const File = () => {
         style={{ display: "none" }}
         onChange={handleFileChange}
       />
-      <IconButton onClick={handleButtonClick} component="span">
-        <AttachFile />
-      </IconButton>
+      {variant == 0 ? (
+        <IconButton onClick={handleButtonClick} component="span">
+          <AttachFile />
+        </IconButton>
+      ) : (
+        <IconButton onClick={handleButtonClick} color="primary" sx={{ p: "10px" }}>
+          <Photo />
+        </IconButton>
+      )}
     </>
   );
 };

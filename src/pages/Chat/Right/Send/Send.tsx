@@ -15,6 +15,7 @@ import { Message } from "../ChatFormats";
 const ChatSend = (props: {
   chatID: number;
   sended: (data: Message) => void;
+  onFileUpload: (file: File | null) => void;
 }) => {
   const [message, setMessage] = useState("");
   const theme = useTheme();
@@ -80,14 +81,9 @@ const ChatSend = (props: {
           }}
           onKeyDown={(e) => send(e)}
         />
-        <input
-          type={"file"}
-          name="file-upload"
-          id="file-upload"
-          style={{ display: "none" }}
-        />
+
         {message === "" ? (
-          <File />
+          <File variant={0} onFileUpload={props.onFileUpload} />
         ) : (
           <IconButton
             type="button"
@@ -99,9 +95,7 @@ const ChatSend = (props: {
           </IconButton>
         )}
         <Divider sx={{ height: 28, m: 0.5 }} orientation="vertical" />
-        <IconButton color="primary" sx={{ p: "10px" }} aria-label="directions">
-          <Photo />
-        </IconButton>
+        <File variant={1} onFileUpload={props.onFileUpload} />
       </Paper>
     </Box>
   );
