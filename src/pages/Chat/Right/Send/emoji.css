@@ -2,6 +2,7 @@
   font-size: xx-large;
   display: inline-block;
   margin: -6px 6px;
+  padding: 5px;
   cursor: pointer;
   user-select: none;
   transition: 0.3s;
