@@ -2,8 +2,8 @@ import Paper from "@mui/material/Paper";
 import InputBase from "@mui/material/InputBase";
 import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
-import { useState } from "react";
-import { Send, Photo } from "@mui/icons-material";
+import { ChangeEvent, useState } from "react";
+import { Send, Photo, TurnLeft } from "@mui/icons-material";
 import { Box, useTheme } from "@mui/material";
 import Emoji from "./Emoji";
 import File from "./FileSend";
@@ -11,18 +11,28 @@ import Requests from "../../../../services/requests";
 import { InsertEmoticon } from "@mui/icons-material";
 import CloseIcon from "@mui/icons-material/Close";
 import { Message } from "../ChatFormats";
+import Page from "../Upload/Page";
 
 const ChatSend = (props: {
   chatID: number;
   sended: (data: Message) => void;
-  onFileUpload: (file: File | null) => void;
 }) => {
   const [message, setMessage] = useState("");
   const theme = useTheme();
-  const [open, setOpen] = useState(false as Boolean);
+  const [openEmoji, setOpenEmoji] = useState(false as Boolean);
+  const [openFile, setOpenFile] = useState(false as Boolean);
+  const [uploadedFile, setUploadedFile] = useState<File | null>(null);
+
+  const handleFileUpload = (file: File | null) => {
+    setUploadedFile(file);
+    if (file != null) {
+      setOpenFile(true);
+      setOpenEmoji(false);
+    }
+  };
 
   const handleChange = () => {
-    setOpen(!open);
+    setOpenEmoji(!openEmoji);
   };
 
   const send = async (
@@ -43,7 +53,13 @@ const ChatSend = (props: {
         flexDirection: "column",
       }}
     >
-      {open ? (
+      {openFile ? (
+        <Page change={() => {}} uploadedFile={uploadedFile} />
+      ) : (
+        <></>
+      )}
+
+      {openEmoji ? (
         <Emoji setEmoji={(emoji) => setMessage((recent) => recent + emoji)} />
       ) : (
         <></>
@@ -63,12 +79,12 @@ const ChatSend = (props: {
         <IconButton
           sx={{ p: "10px" }}
           onClick={handleChange}
-          aria-controls={open ? "basic-menu" : undefined}
+          aria-controls={openEmoji ? "basic-menu" : undefined}
           aria-haspopup="true"
-          aria-expanded={open ? "true" : undefined}
+          aria-expanded={openEmoji ? "true" : undefined}
           aria-label="menu"
         >
-          {open ? <CloseIcon /> : <InsertEmoticon />}
+          {openEmoji ? <CloseIcon /> : <InsertEmoticon />}
         </IconButton>
 
         <InputBase
@@ -83,7 +99,7 @@ const ChatSend = (props: {
         />
 
         {message === "" ? (
-          <File variant={0} onFileUpload={props.onFileUpload} />
+          <File variant={0} onFileUpload={handleFileUpload} />
         ) : (
           <IconButton
             type="button"
@@ -95,7 +111,7 @@ const ChatSend = (props: {
           </IconButton>
         )}
         <Divider sx={{ height: 28, m: 0.5 }} orientation="vertical" />
-        <File variant={1} onFileUpload={props.onFileUpload} />
+        <File variant={1} onFileUpload={handleFileUpload} />
       </Paper>
     </Box>
   );

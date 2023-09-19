@@ -46,14 +46,6 @@ const Body = (props: ChatContentProps) => {
   const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef(null as any);
   const chatMessages = useRef(null as null | HTMLDivElement);
-  const [uploadedFile, setUploadedFile] = useState<File | null>(null);
-
-  const handleFileUpload = (file: File | null) => {
-    setUploadedFile(file);
-    if (typeof file != null && file instanceof File) {
-      setMode(2);
-    }
-  };
 
   useEffect(() => {
     setMode(0);
@@ -147,7 +139,6 @@ const Body = (props: ChatContentProps) => {
               setChange(change + 1);
               setMessages((messages) => [...messages, newOne]);
             }}
-            onFileUpload={handleFileUpload}
           />
         </>
       )}
@@ -166,15 +157,6 @@ const Body = (props: ChatContentProps) => {
         <></>
       )}
 
-      {mode == 2 ? (
-        <Page
-          back={() => setMode(0)}
-          change={() => {}}
-          uploadedFile={uploadedFile}
-        />
-      ) : (
-        <></>
-      )}
     </Box>
   );
 };
