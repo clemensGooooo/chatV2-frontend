@@ -11,7 +11,7 @@ import { Message } from "./ChatFormats";
 import ChatSend from "./Send/Send";
 import ChatBox from "../../../components/Chat/Body/Message";
 import LoadBefore from "../../../components/Chat/Body/LoadBefore";
-import Page from "./Upload/Page";
+import Page from "./Send/Upload/Page";
 
 const styles = {
   main: {

@@ -11,7 +11,7 @@ import Requests from "../../../../services/requests";
 import { InsertEmoticon } from "@mui/icons-material";
 import CloseIcon from "@mui/icons-material/Close";
 import { Message } from "../ChatFormats";
-import Page from "../Upload/Page";
+import Page from "./Upload/Page";
 
 const ChatSend = (props: {
   chatID: number;
@@ -20,13 +20,11 @@ const ChatSend = (props: {
   const [message, setMessage] = useState("");
   const theme = useTheme();
   const [openEmoji, setOpenEmoji] = useState(false as Boolean);
-  const [openFile, setOpenFile] = useState(false as Boolean);
-  const [uploadedFile, setUploadedFile] = useState<File | null>(null);
+  const [uploadedFile, setUploadedFile] = useState<File[] | null>(null);
 
-  const handleFileUpload = (file: File | null) => {
+  const handleFileUpload = (file: File[] | null) => {
     setUploadedFile(file);
     if (file != null) {
-      setOpenFile(true);
       setOpenEmoji(false);
     }
   };
@@ -53,8 +51,11 @@ const ChatSend = (props: {
         flexDirection: "column",
       }}
     >
-      {openFile ? (
-        <Page change={() => {}} uploadedFile={uploadedFile} />
+      {uploadedFile && uploadedFile.length != 0 ? (
+        <Page
+          change={(files) => setUploadedFile(files)}
+          uploadedFiles={uploadedFile}
+        />
       ) : (
         <></>
       )}
@@ -98,9 +99,7 @@ const ChatSend = (props: {
           onKeyDown={(e) => send(e)}
         />
 
-        {message === "" ? (
-          <File variant={0} onFileUpload={handleFileUpload} />
-        ) : (
+        {message != "" || uploadedFile ? (
           <IconButton
             type="button"
             sx={{ p: "10px" }}
@@ -109,6 +108,8 @@ const ChatSend = (props: {
           >
             <Send />
           </IconButton>
+        ) : (
+          <File variant={0} onFileUpload={handleFileUpload} />
         )}
         <Divider sx={{ height: 28, m: 0.5 }} orientation="vertical" />
         <File variant={1} onFileUpload={handleFileUpload} />
