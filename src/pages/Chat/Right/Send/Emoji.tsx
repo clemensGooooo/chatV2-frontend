@@ -51,44 +51,50 @@ const Emoji = (props: { setEmoji: (e: string) => void }) => {
     <Paper
       sx={{
         flex: 1,
-        position: "relative"
+        position: "relative",
       }}
       elevation={1}
     >
-        <Box
-          sx={{
-            overflowX: "scroll",
-            position: "relative",
-            display: "flex",
-            justifyContent: "space-between",
-          }}
-        >
-          {emojis.map((category, i) => (
-            <div
+      <Box
+        sx={{
+          overflowX: "scroll",
+          position: "relative",
+          display: "flex",
+          justifyContent: "space-between",
+        }}
+      >
+        {emojis.map((category, i) => (
+          <div
+            key={i}
             onClick={() => setPage(i)}
-              className="tab"
-              style={{
-                borderBottom: theme.palette.divider+ " 2px solid"
-              }}
+            className="tab"
+            style={{
+              borderBottom: theme.palette.divider + " 2px solid",
+            }}
+          >
+            <Avatar
+              sx={{ bgcolor: theme.palette.primary.main }}
+              component="div"
             >
-              <Avatar sx={{ bgcolor: theme.palette.primary.main }} component="div">{category.name}</Avatar>
-            </div>
-          ))}
-        </Box>
-        <Box
-          sx={{
-            padding: "10px",
-            width: "100%",
-            maxHeight: "200px",
-            overflowY: "auto",
-          }}
-        >
-          {emojis[currentPage].icon.map((ico) => (
-            <p className="emoji" onClick={() => handleEmojiClick(ico)}>
-              {ico}
-            </p>
-          ))}
-        </Box>
+              {category.name}
+            </Avatar>
+          </div>
+        ))}
+      </Box>
+      <Box
+        sx={{
+          padding: "10px",
+          width: "100%",
+          maxHeight: "200px",
+          overflowY: "auto",
+        }}
+      >
+        {emojis[currentPage].icon.map((ico, i) => (
+          <p key={i} className="emoji" onClick={() => handleEmojiClick(ico)}>
+            {ico}
+          </p>
+        ))}
+      </Box>
     </Paper>
   );
 };
