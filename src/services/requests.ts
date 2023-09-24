@@ -22,23 +22,35 @@ class Requests {
         }
     };
 
-    send = async (value: string, chatID: number, file?: File) => {
-        if (value === "") {
+    send = async (value: string, chatID: number, files?: File[]) => {
+        const files_defined = files ? files : [];
+
+
+        if (value === "" && undefined == files) {
             throw new Error(this.error);
         }
+
+        const form = new FormData();
+        form.append("message", value);
+
+        form.append("chatID", String(chatID));
+
+        if (files_defined[0] && files_defined[0] != null) {
+            form.append("file", files_defined[0]);
+        }
+
 
         try {
             let res = await axios.post(
                 urls.sendMessage,
-                {
-                    message: value,
-                    type: "text",
-                    chatID: chatID,
-                },
+                form,
                 { headers }
             );
+            files_defined.shift();
+
+
             let data: Message = res.data;
-            
+
             return data;
         } catch (error) {
             throw new Error(this.error);

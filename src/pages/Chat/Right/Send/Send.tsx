@@ -37,7 +37,11 @@ const ChatSend = (props: {
     e?: React.KeyboardEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     if ((e && e.key === "Enter") || e == undefined) {
-      let messageSend = await Requests.send(message, props.chatID);
+      let messageSend = await Requests.send(
+        message,
+        props.chatID,
+        uploadedFile != null ? uploadedFile : undefined
+      );
       props.sended(messageSend);
       setMessage("");
     }
